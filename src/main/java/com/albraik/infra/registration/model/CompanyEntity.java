@@ -202,5 +202,19 @@ public class CompanyEntity {
         hash = 13 * hash + Objects.hashCode(this.createdBy);
         return hash;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if(this == obj)
+			return true;
+		if(obj == null)
+			return false;
+		if (getClass() != obj.getClass()) {
+            return false;
+        }
+		final CompanyEntity companyObj = (CompanyEntity) obj;
+		return companyObj.id == this.id;
+	}
 
 }
