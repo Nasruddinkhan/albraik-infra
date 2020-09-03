@@ -1,17 +1,30 @@
 package com.albraik.infra.registration.model;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+@Entity
+@Table(name = "company_master")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CompanyEntity {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@JsonProperty("id")
 	private Integer id;
 	
@@ -167,6 +180,41 @@ public class CompanyEntity {
 	@JsonAnySetter
 	public void setAdditionalProperty(String name, Object value) {
 		this.additionalProperties.put(name, value);
+	}
+	
+	@Override
+	public String toString() {
+		ObjectMapper Obj = new ObjectMapper();
+		try {
+			// return JSON String
+			return Obj.writeValueAsString(this);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	@Override
+	public int hashCode() {
+		int hash = 7;
+        hash = 13 * hash + Objects.hashCode(this.id);
+        hash = 13 * hash + Objects.hashCode(this.createdBy);
+        return hash;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if(this == obj)
+			return true;
+		if(obj == null)
+			return false;
+		if (getClass() != obj.getClass()) {
+            return false;
+        }
+		final CompanyEntity companyObj = (CompanyEntity) obj;
+		return companyObj.id == this.id;
 	}
 
 }
