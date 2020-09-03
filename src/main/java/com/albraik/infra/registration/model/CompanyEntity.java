@@ -1,7 +1,9 @@
 package com.albraik.infra.registration.model;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Entity
 @Table(name = "company_master")
@@ -177,6 +180,27 @@ public class CompanyEntity {
 	@JsonAnySetter
 	public void setAdditionalProperty(String name, Object value) {
 		this.additionalProperties.put(name, value);
+	}
+	
+	@Override
+	public String toString() {
+		ObjectMapper Obj = new ObjectMapper();
+		try {
+			// return JSON String
+			return Obj.writeValueAsString(this);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	@Override
+	public int hashCode() {
+		int hash = 7;
+        hash = 13 * hash + Objects.hashCode(this.id);
+        hash = 13 * hash + Objects.hashCode(this.createdBy);
+        return hash;
 	}
 
 }
