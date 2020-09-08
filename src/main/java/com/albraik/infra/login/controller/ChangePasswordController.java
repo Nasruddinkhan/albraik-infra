@@ -15,7 +15,6 @@ import com.albraik.infra.registration.service.AdminRegistrationService;
 @RestController
 @RequestMapping("/api")
 public class ChangePasswordController {
-
 private AdminRegistrationService adminRegService;
 	
 	@Autowired
