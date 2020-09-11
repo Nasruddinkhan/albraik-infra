@@ -9,7 +9,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import com.albraik.infra.registration.dto.MyUserDetails;
 import com.albraik.infra.registration.model.UserEntity;
 
 import io.jsonwebtoken.Claims;
