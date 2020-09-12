@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 		.authorizeRequests()
-		.antMatchers(env.getProperty("sign.in.url"),env.getProperty("web.jars") , env.getProperty("sing.up.urls") )
+		.antMatchers(env.getProperty("sign.in.url"),env.getProperty("web.jars") , env.getProperty("sign.up.urls") )
 		.permitAll()
 		.anyRequest()
 		.fullyAuthenticated()

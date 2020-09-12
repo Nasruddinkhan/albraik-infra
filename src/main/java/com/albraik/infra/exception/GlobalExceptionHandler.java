@@ -15,7 +15,28 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<?> emailExists(EmailExistsException ex, WebRequest request) {
 		System.out.println(ex.getMessage());
 		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
-		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(errorDetails, HttpStatus.CONFLICT);
+	}
+	
+	@ExceptionHandler(PhoneNumberExistException.class)
+	public ResponseEntity<ErrorDetails> phoneNumberExists(PhoneNumberExistException ex, WebRequest request)
+	{
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.CONFLICT);
+	}
+	
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public ResponseEntity<ErrorDetails> resourceNotFound(ResourceNotFoundException ex, WebRequest request)
+	{
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(UnauthorizedAccessException.class)
+	public ResponseEntity<ErrorDetails> unauthorizedAccess(UnauthorizedAccessException ex, WebRequest request)
+	{
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.UNAUTHORIZED);
 	}
 	@ExceptionHandler(UserNotFound.class)
 	public ResponseEntity<?> usernameNotFoundException(UserNotFound ex, WebRequest request) {

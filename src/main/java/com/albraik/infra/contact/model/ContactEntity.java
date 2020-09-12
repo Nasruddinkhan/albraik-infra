@@ -1,4 +1,4 @@
-package com.albraik.infra.registration.model;
+package com.albraik.infra.contact.model;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -61,7 +61,7 @@ public class ContactEntity {
 
 	@JsonProperty("is_deleted")
 	private Boolean isDeleted;
-
+	
 	
 	@JsonProperty("id")
 	public Integer getId() {
@@ -213,7 +213,7 @@ public class ContactEntity {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "";
+		return this.getClass().getName();
 	}
 	
 	@Override
