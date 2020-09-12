@@ -1,6 +1,8 @@
 package com.albraik.infra.registration.service;
 
 import static com.albraik.infra.util.ObjectUtilMapper.map;
+import static com.albraik.infra.util.ObjectUtilMapper.mapAll;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,7 +14,10 @@ import com.albraik.infra.exception.UserNotFound;
 import com.albraik.infra.registration.dto.AdminRegisterRequestDTO;
 import com.albraik.infra.registration.dto.ChangePasswordRequestDTO;
 import com.albraik.infra.registration.dto.ChangePasswordResponseDTO;
+import com.albraik.infra.registration.dto.MasterResponseDTO;
+import com.albraik.infra.registration.model.MasterEntity;
 import com.albraik.infra.registration.model.UserEntity;
+import com.albraik.infra.registration.repository.MasterRepo;
 import com.albraik.infra.registration.repository.UserRepo;
 
 @Service("adminRegistrationService")
@@ -21,12 +26,15 @@ public class AdminRegistrationServiceImpl implements AdminRegistrationService {
 	// private BCryptPasswordEncoder bcryptPasswordEncode;
 	private UserRepo usrRepo;
 	private BCryptPasswordEncoder bcryptPasswordEncode;
-
+	private MasterRepo masterRepo;
 	@Autowired
-	public AdminRegistrationServiceImpl(final UserRepo usrRepo, final BCryptPasswordEncoder bcryptPasswordEncode) {
+	public AdminRegistrationServiceImpl(final UserRepo usrRepo,
+			final BCryptPasswordEncoder bcryptPasswordEncode,
+			final MasterRepo masterRepo) {
 		super();
 		this.usrRepo = usrRepo;
 		this.bcryptPasswordEncode = bcryptPasswordEncode;
+		this.masterRepo = masterRepo;
 	}
 
 	@Override
@@ -56,5 +64,12 @@ public class AdminRegistrationServiceImpl implements AdminRegistrationService {
 		userEntity.setPassword(bcryptPasswordEncode.encode(passwordRequestDTO.getPassword()));
 		userEntity = usrRepo.save(userEntity);
 		 return map(userEntity, ChangePasswordResponseDTO.class);
+	}
+
+	@Override
+	public List<MasterResponseDTO> getMasterPageData(String role) {
+		// TODO Auto-generated method stub
+		List<MasterEntity> masterEntity =  masterRepo.findByRole(role);
+		return mapAll(masterEntity, MasterResponseDTO.class);
 	}
 }
