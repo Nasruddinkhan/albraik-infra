@@ -34,7 +34,7 @@ import com.albraik.infra.registration.service.UserServiceImpl;
 import com.albraik.infra.util.ObjectUtilMapper;
 
 @RestController
-@RequestMapping("/contact")
+@RequestMapping("/api/contact")
 public class ContactManagementController {
 
 	@Autowired

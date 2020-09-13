@@ -13,7 +13,7 @@ import com.albraik.infra.contact.model.ContactTypeEntity;
 import com.albraik.infra.contact.service.ContactTypeService;
 
 @RestController
-@RequestMapping("/contact/type")
+@RequestMapping("/api/contact/type")
 public class ContactTypeController {
 
 	@Autowired
