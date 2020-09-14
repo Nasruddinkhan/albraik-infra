@@ -1,14 +1,11 @@
 package com.albraik.infra.contact.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,16 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.albraik.infra.contact.dto.ContactDTO;
 import com.albraik.infra.contact.model.ContactEntity;
-import com.albraik.infra.contact.repository.ContactRepo;
 import com.albraik.infra.contact.service.ContactService;
-import com.albraik.infra.exception.PhoneNumberExistException;
-import com.albraik.infra.exception.ResourceNotFoundException;
-import com.albraik.infra.exception.UnauthorizedAccessException;
 import com.albraik.infra.registration.model.UserEntity;
-import com.albraik.infra.registration.repository.UserRepo;
 import com.albraik.infra.registration.service.UserService;
-import com.albraik.infra.registration.service.UserServiceImpl;
-import com.albraik.infra.util.ObjectUtilMapper;
 
 @RestController
 @RequestMapping("/contact")

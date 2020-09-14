@@ -25,20 +25,14 @@ import com.albraik.infra.registration.service.AdminRegistrationService;
 @RequestMapping("/api")
 public class ChangePasswordController {
 
-	@Value("${aws.s3.bucket}")
-	private String bucketName;
 
-	@Value("${aws.s3.endpointUrl}")
-	private String endPointURL;
 
 	private AdminRegistrationService adminRegService;
-	private AWSS3Service awsS3service;
 
 	@Autowired
-	public ChangePasswordController(final AdminRegistrationService adminRegService, final AWSS3Service awsS3service) {
+	public ChangePasswordController(final AdminRegistrationService adminRegService) {
 		super();
 		this.adminRegService = adminRegService;
-		this.awsS3service = awsS3service;
 	}
 
 	@PostMapping("/changepassword")
@@ -54,9 +48,6 @@ public class ChangePasswordController {
 		return new ResponseEntity<List<MasterResponseDTO>>(adminRegService.getMasterPageData(role), HttpStatus.OK);
 	}
 
-	@PostMapping("/uploadFile")
-	public ResponseEntity<String> uploadFile(@RequestPart(value = "file") MultipartFile file) {
-		return new ResponseEntity<String>(awsS3service.uploadFile(file, bucketName, endPointURL), HttpStatus.OK);
-	}
+	
 
 }

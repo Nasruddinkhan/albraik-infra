@@ -21,7 +21,7 @@ public class AWSS3ServiceImpl implements AWSS3Service {
 
 	@Override
     @Async
-    public String uploadFile(final MultipartFile multipartFile, String bucketName, String endPointUrl ) {
+    public String uploadFile(final MultipartFile multipartFile, String bucketName, String endPointUrl, Integer  companyId) {
 		final File file = convertMultiPartFileToFile(multipartFile);
 		String returnURL = uploadFileToS3Bucket(bucketName, file, amazonS3, endPointUrl);
 		file.delete();
