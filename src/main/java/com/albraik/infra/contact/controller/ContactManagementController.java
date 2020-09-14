@@ -24,7 +24,7 @@ import com.albraik.infra.registration.model.UserEntity;
 import com.albraik.infra.registration.service.UserService;
 
 @RestController
-@RequestMapping("/contact")
+@RequestMapping("/api/contact")
 public class ContactManagementController {
 
 	@Autowired
