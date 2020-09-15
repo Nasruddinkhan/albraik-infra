@@ -32,7 +32,7 @@ public class UserRegistrationController {
 	@PostMapping("/user")
 	public ResponseEntity<UserRegisterRequestDTO> createUser(@RequestBody  UserRegisterRequestDTO userRegistrationRequestDTO) {
 		System.out.println(userRegistrationRequestDTO);
-		String password = UUID.randomUUID().toString();
+		String password = "dsgflaig@123";
 		userRegistrationRequestDTO = userRegistrationService.createUser(userRegistrationRequestDTO, password);
 		//send email
 		mailSenderService.sendUserRegisterMail(userRegistrationRequestDTO, password);
