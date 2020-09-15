@@ -17,10 +17,10 @@ public interface UserRepo extends JpaRepository<UserEntity, Integer> {
 	Optional<UserEntity> findByemail(String email);
 	UserEntity findByEmail(String email);
 	
-	@Query("SELECT new com.albraik.infra.user.dto.UserDTO(um.id as id, um.firstName as name, um.email as email, uj.joiningDate as joiningDate) " +
+	@Query("SELECT new com.albraik.infra.user.dto.UserDTO(um.id as id, um.phoneNumber as name, um.email as email, uj.joiningDate as joiningDate) " +
 			"FROM UserEntity um " + 
 			"INNER JOIN UserJobEntity uj " + 
-			"ON um.id = uj.id " + 
+			"ON um.id = uj.userId " + 
 			"WHERE um.companyId = :companyId " + 
 			"AND um.role = :role " + 
 			"AND um.isActive = 1")
