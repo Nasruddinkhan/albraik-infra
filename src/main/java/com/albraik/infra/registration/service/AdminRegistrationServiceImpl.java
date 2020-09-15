@@ -43,8 +43,8 @@ public class AdminRegistrationServiceImpl implements AdminRegistrationService {
 			throw new EmailExistsException(
 					"There is an account with that email address: " + adRegisterRequestDTO.getEmail());
 		UserEntity user = map(adRegisterRequestDTO, UserEntity.class);
-		user = usrRepo.save(user);
 		user.setPassword(bcryptPasswordEncode.encode(adRegisterRequestDTO.getPassword()));
+		user = usrRepo.save(user);
 		return map(user, AdminRegisterRequestDTO.class);
 		// TODO Auto-generated method stub
 	}
