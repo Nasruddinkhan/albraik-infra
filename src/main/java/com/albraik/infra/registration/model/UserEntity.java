@@ -73,6 +73,9 @@ public class UserEntity {
 
 	@JsonProperty("company_id")
 	private Integer companyId;
+	
+	@JsonProperty("created_by")
+	private Integer createdBy;
 
 	@JsonProperty("created_time")
 	private Long createdTime;
@@ -311,6 +314,14 @@ public class UserEntity {
 	@JsonProperty("is_deleted")
 	public void setIsDeleted(Boolean isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+
+	public Integer getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(Integer createdBy) {
+		this.createdBy = createdBy;
 	}
 
 	@JsonProperty("is_company_created")

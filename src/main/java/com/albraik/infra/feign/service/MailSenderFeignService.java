@@ -10,7 +10,6 @@ import com.albraik.infra.feign.dto.MailDTO;
 @FeignClient(name = "mail-sender", path = "/mail-sender")
 public interface MailSenderFeignService {
 
-	@Async
 	@PostMapping("/mail")
 	MailDTO sendMail(@RequestBody MailDTO mailDTO);
 }

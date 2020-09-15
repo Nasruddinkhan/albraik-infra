@@ -1,10 +1,12 @@
 package com.albraik.infra.mail.service;
 
-import com.albraik.infra.feign.dto.MailDTO;
 import com.albraik.infra.registration.dto.AdminRegisterRequestDTO;
+import com.albraik.infra.registration.dto.UserRegisterRequestDTO;
 
 public interface MailSenderService {
 	
-	MailDTO sendAdminRegisterMail(AdminRegisterRequestDTO adminRegisterRequestDTO, String plainPassword);
+	void sendAdminRegisterMail(AdminRegisterRequestDTO adminRegisterRequestDTO, String plainPassword);
+	
+	void sendUserRegisterMail(UserRegisterRequestDTO adminRegisterRequestDTO, String plainPassword);
 
 }
