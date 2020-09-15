@@ -1,6 +1,7 @@
 package com.albraik.infra.registration.model;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -33,12 +34,17 @@ public class UserJobEntity {
 	private Integer jobTitleId;
 	
 	@JsonProperty("joining_date")
-	private String joiningDate;
+	private Date joiningDate;
 
 	@JsonProperty("role_id")
 	private Integer roleId;
 
-	public UserJobEntity( Integer userId, Integer departmentId, Integer jobTitleId, String joiningDate,
+	public UserJobEntity() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public UserJobEntity( Integer userId, Integer departmentId, Integer jobTitleId, Date joiningDate,
 			Integer roleId) {
 		super();
 		this.userId = userId;
@@ -80,11 +86,11 @@ public class UserJobEntity {
 		this.jobTitleId = jobTitleId;
 	}
 
-	public String getJoiningDate() {
+	public Date getJoiningDate() {
 		return joiningDate;
 	}
 
-	public void setJoiningDate(String joiningDate) {
+	public void setJoiningDate(Date joiningDate) {
 		this.joiningDate = joiningDate;
 	}
 
