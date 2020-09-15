@@ -1,4 +1,4 @@
-package com.albraik.infra.registration.model;
+package com.albraik.infra.company.model;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -19,7 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class CompanyEntity {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonProperty("id")
 	private Integer id;
 	
@@ -52,8 +52,6 @@ public class CompanyEntity {
 	
 	@JsonProperty("created_by")
 	private Integer createdBy;
-	
-	
 
 
 	@JsonProperty("id")
