@@ -1,5 +1,7 @@
 package com.albraik.infra.registration.dto;
 
+import java.sql.Date;
+
 public class UserRegisterRequestDTO {
 
 	private String email;
@@ -20,7 +22,7 @@ public class UserRegisterRequestDTO {
 	
 	private Boolean isFtl;
 	
-	private String joiningDate;
+	private Date joiningDate;
 	
 	private Integer createdBy;
 	
@@ -105,11 +107,11 @@ public class UserRegisterRequestDTO {
 		this.isFtl = isFtl;
 	}
 
-	public String getJoiningDate() {
+	public Date getJoiningDate() {
 		return joiningDate;
 	}
 
-	public void setJoiningDate(String joiningDate) {
+	public void setJoiningDate(Date joiningDate) {
 		this.joiningDate = joiningDate;
 	}
 
@@ -135,6 +137,14 @@ public class UserRegisterRequestDTO {
 
 	public void setUpdatedTime(Long updatedTime) {
 		this.updatedTime = updatedTime;
+	}
+
+	@Override
+	public String toString() {
+		return "UserRegisterRequestDTO [email=" + email + ", phoneNumber=" + phoneNumber + ", departmentId="
+				+ departmentId + ", roleId=" + roleId + ", jobTitleId=" + jobTitleId + ", companyId=" + companyId
+				+ ", role=" + role + ", isActive=" + isActive + ", isFtl=" + isFtl + ", joiningDate=" + joiningDate
+				+ ", createdBy=" + createdBy + ", createdTime=" + createdTime + ", updatedTime=" + updatedTime + "]";
 	}
 
 }
