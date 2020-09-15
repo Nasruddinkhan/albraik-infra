@@ -27,6 +27,8 @@ public final class CompanyRequestDTO {
 		this.address = address;
 		this.createdBy = createdBy;
 		this.name = name;
+		this.createdTime = System.currentTimeMillis();
+		this.updatedTime =  System.currentTimeMillis();
 	}
 
 	public String getCompanyLogo() {
