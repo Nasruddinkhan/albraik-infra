@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.albraik.infra.registration.model.UserEntity;
 import com.albraik.infra.registration.repository.UserRepo;
+import com.albraik.infra.user.dto.UserDTO;
 
 @Service
 public class UserDetailServiceImpl implements UserDetailService {
@@ -15,9 +16,9 @@ public class UserDetailServiceImpl implements UserDetailService {
 	UserRepo userRepo;
 	
 	@Override
-	public List<UserEntity> getUsers(Integer companyId, String role) {
+	public List<UserDTO> getUsers(Integer companyId, String role) {
 		
-		return userRepo.findAllByCompanyIdAndRoleAndIsActiveIsTrue(companyId, role);
+		return userRepo.findAllByCompanyIdAndRole(companyId, role);
 	}
 
 }
