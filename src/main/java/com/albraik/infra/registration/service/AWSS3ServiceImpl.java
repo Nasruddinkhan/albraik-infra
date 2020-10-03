@@ -27,5 +27,11 @@ public class AWSS3ServiceImpl implements AWSS3Service {
 		file.delete();
 		return returnURL;
 	}
- 
+	@Override
+    @Async
+    public String uploadFile(final File file, String bucketName, String endPointUrl) {
+		String returnURL = uploadFileToS3Bucket(bucketName, file, amazonS3, endPointUrl);
+		file.delete();
+		return returnURL;
+	}
 }

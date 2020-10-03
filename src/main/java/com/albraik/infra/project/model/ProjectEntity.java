@@ -1,17 +1,12 @@
 package com.albraik.infra.project.model;
 
-import java.io.IOException;
-import java.util.Objects;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Entity
 @Table(name = "project_master")
@@ -20,63 +15,69 @@ public class ProjectEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonProperty("id") 
-	Integer id;
+	@JsonProperty("project_id") 
+	private Integer projectId;
 	
 	@JsonProperty("name") 
-	String name;
+	private String name;
+	
+	@JsonProperty("case_logo")
+	private String caseLogo;
 	
 	@JsonProperty("project_type_id") 
-	Integer projectTypeId;
+	private String projectTypeId;
 	
 	@JsonProperty("objective") 
-	String objective;
+	private String objective;
 	
 	@JsonProperty("start_date") 
-	String startDate;
+	private String startDate;
 	
 	@JsonProperty("priority") 
-	String priority;
+	private String priority;
 	
 	@JsonProperty("manager_id") 
-	Integer managerId;
+	private Integer managerId;
 	
 	@JsonProperty("drawer_number") 
-	String drawerNumber;
+	private String drawerNumber;
 	
 	@JsonProperty("is_hidden") 
-	Boolean isHidden;
+	private Boolean hiddinProject;
 	
-	@JsonProperty("comments") 
-	String comments;
+	@JsonProperty("comment") 
+	private String comment;
 	
 	@JsonProperty("created_by") 
-	Integer createdBy;
+	private Integer createdBy;
 	
 	@JsonProperty("is_active") 
-	Boolean isActive;
-	
-	@JsonProperty("is_deleted") 
-	Boolean isDeleted;
+	private Boolean isActive;
 	
 	@JsonProperty("created_time") 
-	Long createdTime;
+	private Long createdTime;
 	
 	@JsonProperty("updated_time") 
-	Long updatedTime;
-	
-	
+	private Long updatedTime;
+
+	@JsonProperty("case_logo")
+	public String getCaseLogo() {
+		return caseLogo;
+	}
+	@JsonProperty("case_logo")
+	public void setCaseLogo(String caseLogo) {
+		this.caseLogo = caseLogo;
+	}
 	@JsonProperty("id") 
-    public Integer getId() { 
-		 return this.id; 
-	} 
-	
+    public Integer getProjectId() {
+		return projectId;
+	}
 	@JsonProperty("id") 
-    public void setId(Integer id) { 
-		 this.id = id; 
-	} 
-    
-    @JsonProperty("name") 
+	public void setProjectId(Integer projectId) {
+		this.projectId = projectId;
+	}
+
+	@JsonProperty("name") 
     public String getName() { 
 		 return this.name; 
 	} 
@@ -87,12 +88,12 @@ public class ProjectEntity {
 	} 
     
     @JsonProperty("project_type_id") 
-    public Integer getProjectTypeId() { 
+    public String getProjectTypeId() { 
 		 return this.projectTypeId; 
 	} 
     
     @JsonProperty("project_type_id") 
-    public void setProjectTypeId(Integer projectTypeId) { 
+    public void setProjectTypeId(String projectTypeId) { 
 		 this.projectTypeId = projectTypeId; 
 	} 
     
@@ -146,24 +147,21 @@ public class ProjectEntity {
 		 this.drawerNumber = drawerNumber; 
 	} 
     
-    @JsonProperty("is_hidden") 
-    public Boolean getIsHidden() { 
-		 return this.isHidden; 
+    @JsonProperty("comment") 
+    public String getComment() { 
+		 return this.comment; 
 	} 
-    
-    @JsonProperty("is_hidden") 
-    public void setIsHidden(Boolean isHidden) { 
-		 this.isHidden = isHidden; 
-	} 
-    
-    @JsonProperty("comments") 
-    public String getComments() { 
-		 return this.comments; 
-	} 
-    
-    @JsonProperty("comments") 
-    public void setComments(String comments) { 
-		 this.comments = comments; 
+    @JsonProperty("hiddin_project") 
+    public Boolean getHiddinProject() {
+		return hiddinProject;
+	}
+    @JsonProperty("hiddin_project") 
+	public void setHiddinProject(Boolean hiddinProject) {
+		this.hiddinProject = hiddinProject;
+	}
+	@JsonProperty("comment") 
+    public void setComment(String comment) { 
+		 this.comment = comment; 
 	} 
     
     @JsonProperty("created_by") 
@@ -186,16 +184,6 @@ public class ProjectEntity {
 		 this.isActive = isActive; 
 	} 
     
-    @JsonProperty("is_deleted") 
-    public Boolean getIsDeleted() { 
-		 return this.isDeleted; 
-	} 
-    
-    @JsonProperty("is_deleted") 
-    public void setIsDeleted(Boolean isDeleted) { 
-		 this.isDeleted = isDeleted; 
-	} 
-    
     @JsonProperty("created_time") 
     public Long getCreatedTime() { 
 		 return this.createdTime; 
@@ -215,42 +203,5 @@ public class ProjectEntity {
     public void setUpdatedTime(Long updatedTime) { 
 		 this.updatedTime = updatedTime; 
 	} 
-    
-    @Override
-	public String toString() {
-		ObjectMapper Obj = new ObjectMapper();
-		try {
-			// return JSON String
-			return Obj.writeValueAsString(this);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		return this.getClass().getName();
-	}
-	
-	@Override
-	public int hashCode() {
-		int hash = 7;
-        hash = 13 * hash + Objects.hashCode(this.id);
-        hash = 13 * hash + Objects.hashCode(this.projectTypeId);
-        hash = 13 * hash + Objects.hashCode(this.createdBy);
-        return hash;
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		if(this == obj)
-			return true;
-		if(obj == null)
-			return false;
-		if (getClass() != obj.getClass()) {
-            return false;
-        }
-		final ProjectEntity projectObj = (ProjectEntity) obj;
-		return projectObj.id == this.id;
-	}
-	
 
 }
