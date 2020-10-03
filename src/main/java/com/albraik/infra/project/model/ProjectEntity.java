@@ -21,13 +21,13 @@ public class ProjectEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonProperty("id") 
-	int id;
+	Integer id;
 	
 	@JsonProperty("name") 
 	String name;
 	
 	@JsonProperty("project_type_id") 
-	int projectTypeId;
+	Integer projectTypeId;
 	
 	@JsonProperty("objective") 
 	String objective;
@@ -39,40 +39,40 @@ public class ProjectEntity {
 	String priority;
 	
 	@JsonProperty("manager_id") 
-	int managerId;
+	Integer managerId;
 	
 	@JsonProperty("drawer_number") 
 	String drawerNumber;
 	
 	@JsonProperty("is_hidden") 
-	boolean isHidden;
+	Boolean isHidden;
 	
 	@JsonProperty("comments") 
 	String comments;
 	
 	@JsonProperty("created_by") 
-	int createdBy;
+	Integer createdBy;
 	
 	@JsonProperty("is_active") 
-	boolean isActive;
+	Boolean isActive;
 	
 	@JsonProperty("is_deleted") 
-	boolean isDeleted;
+	Boolean isDeleted;
 	
 	@JsonProperty("created_time") 
-	long createdTime;
+	Long createdTime;
 	
 	@JsonProperty("updated_time") 
-	long updatedTime;
+	Long updatedTime;
 	
 	
 	@JsonProperty("id") 
-    public int getId() { 
+    public Integer getId() { 
 		 return this.id; 
 	} 
 	
 	@JsonProperty("id") 
-    public void setId(int id) { 
+    public void setId(Integer id) { 
 		 this.id = id; 
 	} 
     
@@ -87,12 +87,12 @@ public class ProjectEntity {
 	} 
     
     @JsonProperty("project_type_id") 
-    public int getProjectTypeId() { 
+    public Integer getProjectTypeId() { 
 		 return this.projectTypeId; 
 	} 
     
     @JsonProperty("project_type_id") 
-    public void setProjectTypeId(int projectTypeId) { 
+    public void setProjectTypeId(Integer projectTypeId) { 
 		 this.projectTypeId = projectTypeId; 
 	} 
     
@@ -127,12 +127,12 @@ public class ProjectEntity {
 	} 
     
     @JsonProperty("manager_id") 
-    public int getManagerId() { 
+    public Integer getManagerId() { 
 		 return this.managerId; 
 	} 
     
     @JsonProperty("manager_id") 
-    public void setManagerId(int managerId) { 
+    public void setManagerId(Integer managerId) { 
 		 this.managerId = managerId; 
 	} 
     
@@ -147,12 +147,12 @@ public class ProjectEntity {
 	} 
     
     @JsonProperty("is_hidden") 
-    public boolean getIsHidden() { 
+    public Boolean getIsHidden() { 
 		 return this.isHidden; 
 	} 
     
     @JsonProperty("is_hidden") 
-    public void setIsHidden(boolean isHidden) { 
+    public void setIsHidden(Boolean isHidden) { 
 		 this.isHidden = isHidden; 
 	} 
     
@@ -167,52 +167,52 @@ public class ProjectEntity {
 	} 
     
     @JsonProperty("created_by") 
-    public int getCreatedBy() { 
+    public Integer getCreatedBy() { 
 		 return this.createdBy; 
 	} 
     
     @JsonProperty("created_by") 
-    public void setCreatedBy(int createdBy) { 
+    public void setCreatedBy(Integer createdBy) { 
 		 this.createdBy = createdBy; 
 	} 
     
     @JsonProperty("is_active") 
-    public boolean getIsActive() { 
+    public Boolean getIsActive() { 
 		 return this.isActive; 
 	} 
     
     @JsonProperty("is_active") 
-    public void setIsActive(boolean isActive) { 
+    public void setIsActive(Boolean isActive) { 
 		 this.isActive = isActive; 
 	} 
     
     @JsonProperty("is_deleted") 
-    public boolean getIsDeleted() { 
+    public Boolean getIsDeleted() { 
 		 return this.isDeleted; 
 	} 
     
     @JsonProperty("is_deleted") 
-    public void setIsDeleted(boolean isDeleted) { 
+    public void setIsDeleted(Boolean isDeleted) { 
 		 this.isDeleted = isDeleted; 
 	} 
     
     @JsonProperty("created_time") 
-    public long getCreatedTime() { 
+    public Long getCreatedTime() { 
 		 return this.createdTime; 
 	} 
     
     @JsonProperty("created_time") 
-    public void setCreatedTime(long createdTime) { 
+    public void setCreatedTime(Long createdTime) { 
 		 this.createdTime = createdTime; 
 	} 
     
     @JsonProperty("updated_time") 
-    public long getUpdatedTime() { 
+    public Long getUpdatedTime() { 
 		 return this.updatedTime; 
 	} 
     
     @JsonProperty("updated_time") 
-    public void setUpdatedTime(long updatedTime) { 
+    public void setUpdatedTime(Long updatedTime) { 
 		 this.updatedTime = updatedTime; 
 	} 
     
