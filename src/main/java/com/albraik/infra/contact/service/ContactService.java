@@ -20,4 +20,6 @@ public interface ContactService {
 	
 	ContactEntity getContactDetails(UserEntity userDetails, Integer contactId);
 	
+	List<ContactEntity> getContactsByType(Integer companyId, Integer contactType);
+	
 }

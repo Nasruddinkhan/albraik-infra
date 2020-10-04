@@ -74,6 +74,15 @@ public class ContactManagementController {
 			return new ResponseEntity<>(myContacts, HttpStatus.NO_CONTENT);
 		return ResponseEntity.ok(myContacts);
 	}
+	
+	@GetMapping(params = { "contactTypeId" })
+	public ResponseEntity<List<ContactEntity>> getContactsByType(@RequestParam Integer contactTypeId, Principal principal) {
+		UserEntity userDetails = userService.getUserDetailsByEmail(principal.getName());
+		List<ContactEntity> myContacts = contactService.getContactsByType(userDetails.getCompanyId(), contactTypeId);
+		if (myContacts.isEmpty())
+			return new ResponseEntity<>(myContacts, HttpStatus.NO_CONTENT);
+		return ResponseEntity.ok(myContacts);
+	}
 
 	@GetMapping("/{contactId}")
 	public ResponseEntity<ContactEntity> getContactDetails(Principal principal, @PathVariable Integer contactId) {

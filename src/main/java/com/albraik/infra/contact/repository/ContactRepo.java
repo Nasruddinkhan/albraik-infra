@@ -18,4 +18,6 @@ public interface ContactRepo extends JpaRepository<ContactEntity, Integer>{
 	
 	ContactEntity findByIdAndIsDeletedIsFalse(Integer id);
 	
+	List<ContactEntity> findByCompanyIdAndContactTypeIdAndIsDeletedIsFalse(Integer companyId, Integer contactTypeId);
+	
 }

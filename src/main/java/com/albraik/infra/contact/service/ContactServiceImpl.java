@@ -88,6 +88,11 @@ public class ContactServiceImpl implements ContactService {
 		List<ContactEntity> myContacts = contactRepo.findByCreatedByAndIsDeletedIsFalse(createdBy);
 		return myContacts;
 	}
+	
+	@Override
+	public List<ContactEntity> getContactsByType(Integer companyId, Integer contactType) {
+		return contactRepo.findByCompanyIdAndContactTypeIdAndIsDeletedIsFalse(companyId, contactType);
+	}
 
 	@Override
 	public ContactEntity getContactDetails(UserEntity userDetails, Integer contactId) {
