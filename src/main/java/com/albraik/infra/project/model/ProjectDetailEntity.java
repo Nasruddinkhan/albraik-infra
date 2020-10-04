@@ -1,8 +1,6 @@
 package com.albraik.infra.project.model;
 
-import java.io.IOException;
 import java.sql.Date;
-import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +10,6 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Entity
 @Table(name = "project_details")
@@ -21,96 +18,98 @@ public class ProjectDetailEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonProperty("id")
-	Integer id;
+	@JsonProperty("project_details_id")
+	private Integer projectDetailsId;
 
 	@JsonProperty("project_id")
-	Integer projectId;
+	private Integer projectId;
 
 	@JsonProperty("case_number")
-	String caseNumber;
+	private String caseNumber;
 
 	@JsonProperty("case_court_id")
-	Integer caseCourtId;
+	private Integer caseCourtId;
 
 	@JsonProperty("case_judge_id")
-	Integer caseJudgeId;
+	private Integer caseJudgeId;
 
 	@JsonProperty("case_office")
-	String caseOffice;
+	private String caseOffice;
 
 	@JsonProperty("case_consultant_id")
-	Integer caseConsultantId;
+	private Integer caseConsultantId;
 
 	@JsonProperty("case_consultant_engagement_date")
-	Date caseConsultantEngagementDate;
+	private Date caseConsultantEngagementDate;
 
 	@JsonProperty("case_client_id")
-	Integer caseClientId;
+	private Integer caseClientId;
 
 	@JsonProperty("case_client_position")
-	String caseClientPosition;
+	private String caseClientPosition;
 
 	@JsonProperty("case_opposing_id")
-	Integer caseOpposingId;
+	private Integer caseOpposingId;
 
 	@JsonProperty("case_opposing_position")
-	String caseOpposingPosition;
+	private String caseOpposingPosition;
 
 	@JsonProperty("case_opposing_representer_id")
-	Integer caseOpposingRepresenterId;
+	private Integer caseOpposingRepresenterId;
 
 	@JsonProperty("case_consultant_engagement_text")
-	String caseConsultantEngagementText;
+	private String caseConsultantEngagementText;
 
 	@JsonProperty("company_name")
-	String companyName;
+	private String companyName;
 
 	@JsonProperty("verdict_executed_case_id")
-	Integer verdictExecutedCaseId;
+	private Integer verdictExecutedCaseId;
 
 	@JsonProperty("verdict_number")
-	String verdictNumber;
+	private String verdictNumber;
 
 	@JsonProperty("verdict_date")
-	Date verdictDate;
+	private Date verdictDate;
 
 	@JsonProperty("verdict_source")
-	String verdictSource;
+	private String verdictSource;
 
 	@JsonProperty("verdict_type")
-	String verdictType;
+	private String verdictType;
 
 	@JsonProperty("verdict_decision_date")
-	Date verdictDecisionDate;
+	private Date verdictDecisionDate;
 
 	@JsonProperty("inheritance_owner_id")
-	Integer inheritanceOwnerId;
+	private Integer inheritanceOwnerId;
 
 	@JsonProperty("doo_office_reference")
-	String dooOfficeReference;
+	private String dooOfficeReference;
 
 	@JsonProperty("doo_court_id")
-	Integer dooCourtId;
+	private Integer dooCourtId;
 
 	@JsonProperty("doo_case_observer_name")
-	String dooCaseObserverName;
+	private String dooCaseObserverName;
 
 	@JsonProperty("doo_case_number")
-	String dooCaseNumber;
+	private String dooCaseNumber;
 
 	@JsonProperty("doo_referent_date")
-	Date dooReferentDate;
+	private Date dooReferentDate;
 
-	@JsonProperty("id")
-	public Integer getId() {
-		return id;
+
+	@JsonProperty("project_details_id")
+	public Integer getProjectDetailsId() {
+		return projectDetailsId;
+	}
+	@JsonProperty("project_details_id")
+	public void setProjectDetailsId(Integer projectDetailsId) {
+		this.projectDetailsId = projectDetailsId;
 	}
 
-	@JsonProperty("id")
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	
 
 	@JsonProperty("project_id")
 	public Integer getProjectId() {
@@ -372,37 +371,6 @@ public class ProjectDetailEntity {
 		this.dooReferentDate = dooReferentDate;
 	}
 
-	@Override
-	public String toString() {
-		ObjectMapper Obj = new ObjectMapper();
-		try {
-			// return JSON String
-			return Obj.writeValueAsString(this);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return this.getClass().getName();
-	}
 
-	@Override
-	public int hashCode() {
-		int hash = 7;
-		hash = 13 * hash + Objects.hashCode(this.id);
-		hash = 13 * hash + Objects.hashCode(this.projectId);
-		return hash;
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		final ProjectDetailEntity projectDetailsObj = (ProjectDetailEntity) obj;
-		return projectDetailsObj.id == this.id;
-	}
 }

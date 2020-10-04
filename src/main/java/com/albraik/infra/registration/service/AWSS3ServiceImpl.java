@@ -5,6 +5,7 @@ import static com.albraik.infra.util.CommonUtils.convertMultiPartFileToFile;
 import static com.albraik.infra.util.CommonUtils.uploadFileToS3Bucket;
 import java.io.File;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

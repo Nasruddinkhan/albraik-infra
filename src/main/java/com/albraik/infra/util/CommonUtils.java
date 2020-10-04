@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import org.springframework.core.env.Environment;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.services.s3.AmazonS3;
@@ -34,10 +35,10 @@ public interface CommonUtils {
 	        return endPointURL+"/"+uniqueFileName;
 	    }
 	
-	public static File createDynamicImage(String firstName)  {
+	public static File createDynamicImage(String firstName, Environment env)  {
 		int width = 120;
 		int height = 120;
-		String filePath = "D://temp//";
+		String filePath = env.getProperty("img.location");
 		String imgChar = String.valueOf(firstName.charAt(0)).toUpperCase();
 		String fileStr = filePath+imgChar+".jpg";
 		File file = new File(fileStr);
