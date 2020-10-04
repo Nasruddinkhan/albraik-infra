@@ -9,5 +9,7 @@ import com.albraik.infra.project.model.ProjectEntity;
 
 @Repository
 public interface ProjectRepo extends JpaRepository<ProjectEntity, Integer>{
-	Page<ProjectEntity> findBycreatedBy(Integer userId, Pageable firstPageWithTwoElements);
+
+
+	Page<ProjectEntity> findBycreatedByAndIsActiveTrue(Integer userId, Pageable firstPageWithTwoElements);
 }

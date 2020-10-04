@@ -1,5 +1,9 @@
 package com.albraik.infra.project.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +17,6 @@ import com.albraik.infra.project.dto.ProjectDto;
 import com.albraik.infra.project.model.ProjectEntity;
 import com.albraik.infra.project.repository.ProjectRepo;
 import com.albraik.infra.project.service.ProjectTypeService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 @RestController
 @RequestMapping("/api")
 public class ProjectController {
@@ -24,7 +24,8 @@ public class ProjectController {
 	private ProjectTypeService projectService;
 	private ProjectRepo projectRepo;
 
-	public ProjectController(final ProjectTypeService projectService,final ProjectRepo projectRepo) {
+	public ProjectController(final ProjectTypeService projectService,final ProjectRepo projectRepo
+			) {
 		super();
 		this.projectService = projectService;
 		this.projectRepo = projectRepo;
@@ -39,6 +40,7 @@ public class ProjectController {
 	@GetMapping("task/{userId}/{pageNo}/allrecord")
 	public Page<ProjectEntity> findAllTask(@PathVariable Integer userId, @PathVariable Integer pageNo){
 		Pageable  firstPageWithTwoElements  = PageRequest.of(pageNo-1, 10, Sort.by("projectId").descending());
-		return  projectRepo.findBycreatedBy(userId, firstPageWithTwoElements );
+		return  projectRepo.findBycreatedByAndIsActiveTrue(userId, firstPageWithTwoElements );
 	}
+
 }
