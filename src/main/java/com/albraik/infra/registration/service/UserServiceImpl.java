@@ -16,5 +16,6 @@ public class UserServiceImpl implements UserService{
 	public UserEntity getUserDetailsByEmail(String email) {
 		return userRepo.findByEmail(email);
 	}
+
 	
 }

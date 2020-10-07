@@ -15,18 +15,21 @@ import com.albraik.infra.user.dto.UserDTO;
 public interface UserRepo extends JpaRepository<UserEntity, Integer> {
 
 	Optional<UserEntity> findByemail(String email);
+
 	UserEntity findByEmail(String email);
-	
-	@Query("SELECT new com.albraik.infra.user.dto.UserDTO(um.id as id, um.phoneNumber as name, um.email as email, uj.joiningDate as joiningDate) " +
-			"FROM UserEntity um " + 
-			"INNER JOIN UserJobEntity uj " + 
-			"ON um.id = uj.userId " + 
-			"WHERE um.companyId = :companyId " + 
-			"AND um.role = :role " + 
-			"AND um.isActive = 1")
-	List<UserDTO> findAllByCompanyIdAndRole(@Param("companyId")Integer companyId,
-			@Param("role") String role);
-	
-	
+
+	@Query("SELECT new com.albraik.infra.user.dto.UserDTO(um.id as id, um.phoneNumber as name, um.email as email, uj.joiningDate as joiningDate) "
+			+ "FROM UserEntity um " + "INNER JOIN UserJobEntity uj " + "ON um.id = uj.userId "
+			+ "WHERE um.companyId = :companyId " + "AND um.role = :role " + "AND um.isActive = 1")
+	List<UserDTO> findAllByCompanyIdAndRole(@Param("companyId") Integer companyId, @Param("role") String role);
+
+	@Query("select new com.albraik.infra.user.dto.UserDTO(u.id as id, u.phoneNumber as name, u.email as email, j.joiningDate as joiningDate)"
+			+ " from UserEntity u, UserJobEntity j, JobTitleEntity t "
+			+ " where	(j.userId = u.id and j.jobTitleId = t.id) "
+			+ "  and	u.role =:role and u.companyId = :companyId "
+			+ "  and u.isActive=1 and t.name=:name" )
+	List<UserDTO> getUserJobtitle(@Param("companyId") Integer companyId,
+			@Param("name") String name,
+			@Param("role") String roleUser);
 
 }
