@@ -21,6 +21,9 @@ public class ProjectEntity {
 	@JsonProperty("name") 
 	private String name;
 	
+	@JsonProperty("company_id") 
+	private Integer companyId;
+	
 	@JsonProperty("case_logo")
 	private String caseLogo;
 	
@@ -68,11 +71,11 @@ public class ProjectEntity {
 	public void setCaseLogo(String caseLogo) {
 		this.caseLogo = caseLogo;
 	}
-	@JsonProperty("id") 
+	@JsonProperty("project_id") 
     public Integer getProjectId() {
 		return projectId;
 	}
-	@JsonProperty("id") 
+	@JsonProperty("project_id") 
 	public void setProjectId(Integer projectId) {
 		this.projectId = projectId;
 	}
@@ -87,7 +90,17 @@ public class ProjectEntity {
 		 this.name = name; 
 	} 
     
-    @JsonProperty("project_type_id") 
+    @JsonProperty("company_id") 
+    public Integer getCompanyId() {
+		return companyId;
+	}
+    
+    @JsonProperty("company_id") 
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
+    
+	@JsonProperty("project_type_id") 
     public String getProjectTypeId() { 
 		 return this.projectTypeId; 
 	} 
