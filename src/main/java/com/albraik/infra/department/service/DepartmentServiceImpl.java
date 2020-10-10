@@ -1,5 +1,6 @@
 package com.albraik.infra.department.service;
 
+import static com.albraik.infra.util.ObjectUtilMapper.map;
 import static com.albraik.infra.util.ObjectUtilMapper.mapAll;
 
 import java.util.List;
@@ -53,5 +54,14 @@ public class DepartmentServiceImpl implements DepartmentService {
 		if (departments.isEmpty())
 			throw new ResourceNotFoundException("no department found");
 		return mapAll(departments, DepartmentResDTO.class);
+	}
+
+	@Override
+	public DepartmentResDTO checkDepartment(Integer userId, Integer companyId, String name) {
+		// TODO Auto-generated method stub
+		DepartmentEntity departmentEntity = departmentRepo.findByCreatedByAndCompanyIdAndName(userId, companyId, name );
+		if(departmentEntity!=null)
+			throw new RuntimeException(name +" already is present");
+		return map(departmentEntity, DepartmentResDTO.class);
 	}
 }

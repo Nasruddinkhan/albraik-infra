@@ -39,4 +39,11 @@ public class DepartmentController {
 	public ResponseEntity<List<DepartmentResDTO>> findAll(@PathVariable Integer userId) {
 		return new ResponseEntity<List<DepartmentResDTO>>(departmentService.findAll(userId), HttpStatus.OK);
 	}
+	
+	@GetMapping("/get/{userId}/{companyId}/{name}/name")
+	public ResponseEntity<DepartmentResDTO> checkDepartment(@PathVariable Integer userId,
+			@PathVariable String name,
+			@PathVariable Integer companyId) {
+		return new ResponseEntity<DepartmentResDTO>(departmentService.checkDepartment(userId, companyId, name ), HttpStatus.OK);
+	}
 }

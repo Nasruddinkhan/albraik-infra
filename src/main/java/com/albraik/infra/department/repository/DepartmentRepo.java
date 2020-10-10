@@ -11,5 +11,6 @@ import com.albraik.infra.department.model.DepartmentEntity;
 public interface DepartmentRepo extends JpaRepository<DepartmentEntity, Integer> {
 
 	List<DepartmentEntity> findByCreatedBy(Integer createdBy);
+	DepartmentEntity findByCreatedByAndCompanyIdAndName(Integer userId, Integer companyId, String name);
 
 }

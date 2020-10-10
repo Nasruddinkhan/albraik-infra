@@ -19,15 +19,13 @@ public class GlobalExceptionHandler {
 	}
 	
 	@ExceptionHandler(PhoneNumberExistException.class)
-	public ResponseEntity<ErrorDetails> phoneNumberExists(PhoneNumberExistException ex, WebRequest request)
-	{
+	public ResponseEntity<ErrorDetails> phoneNumberExists(PhoneNumberExistException ex, WebRequest request){
 		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
 		return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.CONFLICT);
 	}
-	
+
 	@ExceptionHandler(ResourceNotFoundException.class)
-	public ResponseEntity<ErrorDetails> resourceNotFound(ResourceNotFoundException ex, WebRequest request)
-	{
+	public ResponseEntity<ErrorDetails> resourceNotFound(ResourceNotFoundException ex, WebRequest request){
 		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
 		return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.NOT_FOUND);
 	}

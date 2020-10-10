@@ -11,4 +11,7 @@ public interface DepartmentService {
 
 	List<DepartmentResDTO> findAll(Integer userId);
 
+
+	DepartmentResDTO checkDepartment(Integer userId, Integer companyId, String name);
+
 }
