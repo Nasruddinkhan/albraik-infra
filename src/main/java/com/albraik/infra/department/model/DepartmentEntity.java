@@ -22,7 +22,6 @@ public class DepartmentEntity {
 	
 	@JsonProperty("name")
 	private String name;
-
 	@JsonProperty("company_id")
 	private Integer companyId;
 	
