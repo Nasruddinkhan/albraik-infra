@@ -2,6 +2,7 @@ package com.albraik.infra.registration.controller;
 
 import java.util.UUID;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.albraik.infra.mail.service.MailSenderService;
 import com.albraik.infra.registration.dto.UserRegisterRequestDTO;
 import com.albraik.infra.registration.service.UserRegistrationService;
+import com.albraik.infra.util.CommonUtils;
 
 @RestController
 @RequestMapping("/api")
@@ -32,7 +34,7 @@ public class UserRegistrationController {
 	@PostMapping("/user")
 	public ResponseEntity<UserRegisterRequestDTO> createUser(@RequestBody  UserRegisterRequestDTO userRegistrationRequestDTO) {
 		System.out.println(userRegistrationRequestDTO);
-		String password = "dsgflaig@123";
+		String password = CommonUtils.generateRandomUserPassword();
 		userRegistrationRequestDTO = userRegistrationService.createUser(userRegistrationRequestDTO, password);
 		//send email
 		mailSenderService.sendUserRegisterMail(userRegistrationRequestDTO, password);

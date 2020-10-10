@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.core.env.Environment;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -61,5 +62,10 @@ public interface CommonUtils {
 			}
 		}
 		return file;
+	}
+	
+	public static String generateRandomUserPassword()
+	{
+		return RandomStringUtils.random(AppConstants.RANDOM_USER_PASSWORD_LENGTH, true, true);
 	}
 }
