@@ -2,9 +2,10 @@ package com.albraik.infra.project.service;
 
 import static com.albraik.infra.util.CommonUtils.createDynamicImage;
 import static com.albraik.infra.util.ObjectUtilMapper.map;
-
+import static com.albraik.infra.util.ObjectUtilMapper.mapAll;
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -37,9 +38,10 @@ public class ProjectTypeServiceImpl implements ProjectTypeService {
 	private AWSS3Service awsS3service;
 	private ProjectDetailsRepo projectDetailsRepo;
 	private Environment env;
+
 	@Autowired
 	public ProjectTypeServiceImpl(final ProjectTypeRepo projectTypeRepo, final ProjectRepo projectRepo,
-			final AWSS3Service awsS3service,final ProjectDetailsRepo projectDetailsRepo, final Environment env) {
+			final AWSS3Service awsS3service, final ProjectDetailsRepo projectDetailsRepo, final Environment env) {
 		super();
 		this.projectTypeRepo = projectTypeRepo;
 		this.projectRepo = projectRepo;
@@ -129,4 +131,10 @@ public class ProjectTypeServiceImpl implements ProjectTypeService {
 		return projectVerdictDto;
 	}
 
+	@Override
+	public List<ProjectDto> getAllCase(String projectType, Integer companyId) {
+		// TODO Auto-generated method stub
+		return mapAll(projectRepo.findByprojectTypeIdAndIsActiveTrueAndCompanyId(projectType, companyId),
+				ProjectDto.class);
+	}
 }

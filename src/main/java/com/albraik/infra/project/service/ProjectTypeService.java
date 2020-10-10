@@ -19,5 +19,6 @@ public interface ProjectTypeService {
 	ProjectDeedCase addDeedCase(ProjectDeedCase projectDeedCase);
 	ProjectInheritanceDto addInheritanceCase(ProjectInheritanceDto inheritanceDto);
 	ProjectVerdictDto addVerditCase(ProjectVerdictDto projectVerdictDto);
+	List<ProjectDto> getAllCase(String projectType, Integer companyId);
 	
 }

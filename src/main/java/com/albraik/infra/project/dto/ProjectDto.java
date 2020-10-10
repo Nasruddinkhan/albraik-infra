@@ -19,6 +19,7 @@ public final class ProjectDto {
 	private Integer createdBy;
 	private Boolean isActive;
 	private String caseLogo;
+	private Integer companyId;
 	public ProjectDto() {
 		super();
 		this.createdTime = System.currentTimeMillis();
@@ -27,7 +28,7 @@ public final class ProjectDto {
 	}
 
 	public ProjectDto(Integer projectId, String projectTypeId, String name, Date startDate, String priority,
-			String drawerNumber, String objective, String comment, Boolean hiddinProject, Integer managerId) {
+			String drawerNumber, String objective, String comment, Boolean hiddinProject, Integer managerId, Integer companyId) {
 		super();
 		this.projectId = projectId;
 		this.projectTypeId = projectTypeId;
@@ -42,6 +43,7 @@ public final class ProjectDto {
 		this.createdTime = System.currentTimeMillis();
 		this.updatedTime = System.currentTimeMillis();
 		this.isActive = true;
+		this.companyId = companyId;
 	}
 	
 	public String getCaseLogo() {
@@ -162,6 +164,14 @@ public final class ProjectDto {
 
 	public void setCreatedBy(Integer createdBy) {
 		this.createdBy = createdBy;
+	}
+
+	public Integer getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
 	}
 
 	@Override

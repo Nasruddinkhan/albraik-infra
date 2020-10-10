@@ -1,5 +1,7 @@
 package com.albraik.infra.project.controller;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -78,5 +80,12 @@ public class ProjectController {
 			@RequestBody ProjectVerdictDto projectVerdictDto) {
 		return new ResponseEntity<ProjectVerdictDto>(
 				projectService.addVerditCase(projectVerdictDto), HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/get/{projectType}/{companyId}/allcases")
+	public ResponseEntity<List<ProjectDto>> getAllCase(@PathVariable Integer companyId, 
+			@PathVariable String projectType ) {
+		return new ResponseEntity<List<ProjectDto>>(
+				projectService.getAllCase(projectType, companyId), HttpStatus.OK);
 	}
 }
