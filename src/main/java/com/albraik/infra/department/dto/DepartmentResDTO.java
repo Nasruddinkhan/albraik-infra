@@ -7,6 +7,8 @@ public final class DepartmentResDTO {
 	private Long createdTime;
 	private Long updatedTime;
 	private Integer createdBy;
+	private Boolean isActive;
+	private Boolean isDeleted;
 	
 	
 	public DepartmentResDTO() {
@@ -58,6 +60,18 @@ public final class DepartmentResDTO {
 	}
 	public void setCreatedBy(Integer createdBy) {
 		this.createdBy = createdBy;
+	}
+	public Boolean getIsActive() {
+		return isActive;
+	}
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+	public Boolean getIsDeleted() {
+		return isDeleted;
+	}
+	public void setIsDeleted(Boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 	
 	

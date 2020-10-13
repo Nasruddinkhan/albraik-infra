@@ -50,7 +50,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public List<DepartmentResDTO> findAll(Integer userId) {
 		// TODO Auto-generated method stub
-		List<DepartmentEntity> departments = departmentRepo.findByCreatedBy(userId);
+		List<DepartmentEntity> departments = departmentRepo.findByCreatedByAndIsActiveTrueAndIsDeletedFalse(userId);
 		if (departments.isEmpty())
 			throw new ResourceNotFoundException("no department found");
 		return mapAll(departments, DepartmentResDTO.class);
@@ -59,9 +59,11 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public DepartmentResDTO checkDepartment(Integer userId, Integer companyId, String name) {
 		// TODO Auto-generated method stub
-		DepartmentEntity departmentEntity = departmentRepo.findByCreatedByAndCompanyIdAndName(userId, companyId, name );
+		DepartmentEntity departmentEntity = departmentRepo.findByCreatedByAndCompanyIdAndNameAndIsActiveTrueAndIsDeletedFalse(userId, companyId, name );
 		if(departmentEntity!=null)
 			throw new RuntimeException(name +" already is present");
 		return map(departmentEntity, DepartmentResDTO.class);
 	}
+	
+	
 }

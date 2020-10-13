@@ -10,7 +10,7 @@ import com.albraik.infra.department.model.DepartmentEntity;
 @Repository
 public interface DepartmentRepo extends JpaRepository<DepartmentEntity, Integer> {
 
-	List<DepartmentEntity> findByCreatedBy(Integer createdBy);
-	DepartmentEntity findByCreatedByAndCompanyIdAndName(Integer userId, Integer companyId, String name);
+	List<DepartmentEntity> findByCreatedByAndIsActiveTrueAndIsDeletedFalse(Integer createdBy);
+	DepartmentEntity findByCreatedByAndCompanyIdAndNameAndIsActiveTrueAndIsDeletedFalse(Integer userId, Integer companyId, String name);
 
 }

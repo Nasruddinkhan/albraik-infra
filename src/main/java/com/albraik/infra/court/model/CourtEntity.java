@@ -92,6 +92,7 @@ public class CourtEntity {
 	public void setCreatedBy(Integer createdBy) {
 		this.createdBy = createdBy;
 	}
+	
 	@JsonProperty("is_active")
 	public Boolean getIsActive() {
 		return isActive;

@@ -34,6 +34,12 @@ public class DepartmentEntity {
 	@JsonProperty("created_by")
 	private Integer createdBy;
 	
+	@JsonProperty("is_active")
+	private Boolean isActive;
+	
+	@JsonProperty("is_deleted")
+	private Boolean isDeleted;
+	
 	@JsonProperty("id")
 	public Integer getId() {
 		return id;
@@ -89,6 +95,24 @@ public class DepartmentEntity {
 		this.updatedTime = updatedTime;
 	}
 	
-	
+	@JsonProperty("is_active")
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	@JsonProperty("is_active")
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	@JsonProperty("is_deleted")
+	public Boolean getIsDeleted() {
+		return isDeleted;
+	}
+
+	@JsonProperty("is_deleted")
+	public void setIsDeleted(Boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
 	
 }
