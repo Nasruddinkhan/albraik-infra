@@ -11,8 +11,8 @@ import com.albraik.infra.role.model.RoleEntity;
 @Repository
 public interface CourtRepo extends JpaRepository<CourtEntity, Integer> {
 
-	List<CourtEntity> findByCreatedBy(Integer createdBy);
+	List<CourtEntity> findByCreatedByAndIsActiveTrueAndIsDeletedFalse(Integer createdBy);
 	
-	List<CourtEntity> findByCompanyId(Integer companyId);
+	List<CourtEntity> findByCompanyIdAndIsActiveTrueAndIsDeletedFalse(Integer companyId);
 
 }

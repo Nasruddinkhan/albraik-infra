@@ -6,9 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,5 +48,21 @@ public class CourtController {
 		UserEntity userEntity = userService.getUserDetailsByEmail(principal.getName());
 		List<CourtEntity> courtEntityList = courtService.getCourtByCompanyId(userEntity.getCompanyId());
 		return ResponseEntity.ok(courtEntityList);
+	}
+	
+	@PutMapping("/{courtId}")
+	public ResponseEntity<CourtEntity> updateCourt(@PathVariable Integer courtId, @RequestBody CourtDTO courtDTO, Principal principal)
+	{
+		UserEntity userEntity = userService.getUserDetailsByEmail(principal.getName());
+		CourtEntity courtEntity = courtService.updateCourt(courtId, courtDTO, userEntity);
+		return ResponseEntity.ok(courtEntity);
+	}
+	
+	@DeleteMapping
+	public ResponseEntity<List<CourtEntity>> deleteMultipleCourt(@RequestBody List<Integer> courtIdList, Principal principal)
+	{
+		UserEntity userEntity = userService.getUserDetailsByEmail(principal.getName());
+		List<CourtEntity> courtList = courtService.deleteCourt(courtIdList, userEntity);
+		return ResponseEntity.ok(courtList);
 	}
 }

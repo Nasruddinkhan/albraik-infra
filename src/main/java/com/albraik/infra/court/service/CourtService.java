@@ -11,4 +11,8 @@ public interface CourtService {
 	List<CourtEntity> getCourtByCompanyId(Integer companyId);
 	
 	List<CourtEntity> createCourt(List<CourtDTO> courtList, UserEntity user);
+	
+	CourtEntity updateCourt(Integer courtId, CourtDTO courtDTO, UserEntity user);
+	
+	List<CourtEntity> deleteCourt(List<Integer> courtIdList, UserEntity user);
 }

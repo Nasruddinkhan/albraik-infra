@@ -35,6 +35,12 @@ public class CourtEntity {
 	@JsonProperty("created_by")
 	private Integer createdBy;
 	
+	@JsonProperty("is_active")
+	private Boolean isActive;
+	
+	@JsonProperty("is_deleted")
+	private Boolean isDeleted;
+	
 	public CourtEntity() {
 		// TODO Auto-generated constructor stub
 	}
@@ -76,14 +82,36 @@ public class CourtEntity {
 	public void setCompanyId(Integer companyId) {
 		this.companyId = companyId;
 	}
+	
 	@JsonProperty("created_by")
 	public Integer getCreatedBy() {
 		return createdBy;
 	}
+	
 	@JsonProperty("created_by")
 	public void setCreatedBy(Integer createdBy) {
 		this.createdBy = createdBy;
 	}
+	@JsonProperty("is_active")
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	@JsonProperty("is_active")
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	@JsonProperty("is_deleted")
+	public Boolean getIsDeleted() {
+		return isDeleted;
+	}
+
+	@JsonProperty("is_deleted")
+	public void setIsDeleted(Boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
 	@JsonProperty("created_time")
 	public Long getCreatedTime() {
 		return createdTime;
