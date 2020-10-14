@@ -11,11 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.albraik.infra.court.model.CourtEntity;
 import com.albraik.infra.department.dto.DepartmentDTO;
+import com.albraik.infra.department.dto.DepartmentReqDTO;
 import com.albraik.infra.department.dto.DepartmentResDTO;
 import com.albraik.infra.department.model.DepartmentEntity;
 import com.albraik.infra.department.repository.DepartmentRepo;
 import com.albraik.infra.exception.ResourceNotFoundException;
+import com.albraik.infra.exception.UnauthorizedAccessException;
+import com.albraik.infra.registration.model.UserEntity;
 
 @Service("departmentService")
 @Transactional
@@ -65,5 +69,31 @@ public class DepartmentServiceImpl implements DepartmentService {
 		return map(departmentEntity, DepartmentResDTO.class);
 	}
 	
+	@Override
+	public DepartmentResDTO updateDepartment(Integer departmentId, DepartmentReqDTO departmentReqDTO, UserEntity userEntity) {
+		DepartmentEntity departmentEntity = departmentRepo.findById(departmentId).orElseThrow(() -> new ResourceNotFoundException("Department not found"));
+		Integer createdBy = departmentEntity.getCreatedBy();
+		if(createdBy != userEntity.getId())
+			throw new UnauthorizedAccessException("you don't have access to modify the department");
+		departmentEntity.setName(departmentReqDTO.getName());
+		departmentEntity.setUpdatedTime(System.currentTimeMillis());
+		departmentRepo.save(departmentEntity);
+		return map(departmentEntity, DepartmentResDTO.class);
+	}
+	
+	@Override
+	public List<DepartmentResDTO> deleteDepartment(List<Integer> departmentIds, UserEntity userEntity) {
+		List<DepartmentEntity> departmentList = departmentRepo.findAllById(departmentIds);
+		if(departmentList.isEmpty())
+			throw new ResourceNotFoundException("No department found");
+		departmentList.forEach(department -> {
+			if(userEntity.getId() != department.getCreatedBy())
+				throw new UnauthorizedAccessException("You don't have access to delete the department");
+			department.setIsDeleted(true);
+			department.setIsActive(false);
+			department.setUpdatedTime(System.currentTimeMillis());
+		});
+		return mapAll(departmentRepo.saveAll(departmentList), DepartmentResDTO.class);
+	}
 	
 }

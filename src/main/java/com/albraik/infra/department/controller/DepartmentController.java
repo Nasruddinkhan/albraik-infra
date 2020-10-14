@@ -1,26 +1,35 @@
 package com.albraik.infra.department.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.albraik.infra.department.dto.DepartmentDTO;
+import com.albraik.infra.department.dto.DepartmentReqDTO;
 import com.albraik.infra.department.dto.DepartmentResDTO;
 import com.albraik.infra.department.service.DepartmentService;
+import com.albraik.infra.registration.model.UserEntity;
+import com.albraik.infra.registration.service.UserService;
 
 @RestController
 @RequestMapping("/api")
 public class DepartmentController {
 
 	private DepartmentService departmentService;
+	
+	@Autowired
+	private UserService userService;
 
 	@Autowired
 	public DepartmentController(final DepartmentService departmentService) {
@@ -45,5 +54,21 @@ public class DepartmentController {
 			@PathVariable String name,
 			@PathVariable Integer companyId) {
 		return new ResponseEntity<DepartmentResDTO>(departmentService.checkDepartment(userId, companyId, name ), HttpStatus.OK);
+	}
+	
+	@PutMapping("/department/{departmentId}")
+	public ResponseEntity<DepartmentResDTO> updateDepartment(@PathVariable Integer departmentId, @RequestBody DepartmentReqDTO departmentReqDTO, Principal principal)
+	{
+		UserEntity userEntity = userService.getUserDetailsByEmail(principal.getName());
+		DepartmentResDTO departmentResDTO = departmentService.updateDepartment(departmentId, departmentReqDTO, userEntity);
+		return ResponseEntity.ok(departmentResDTO);
+	}
+	
+	@DeleteMapping("/department")
+	public ResponseEntity<List<DepartmentResDTO>> deleteMultipleDepartment(@RequestBody List<Integer> departmentIdList, Principal principal)
+	{
+		UserEntity userEntity = userService.getUserDetailsByEmail(principal.getName());
+		List<DepartmentResDTO> departmentList = departmentService.deleteDepartment(departmentIdList, userEntity);
+		return ResponseEntity.ok(departmentList);
 	}
 }
