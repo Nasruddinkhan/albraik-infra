@@ -43,6 +43,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 					dept.setCreatedBy(departmentNames.getCreatedBy());
 					dept.setCreatedTime(departmentNames.getCreatedTime());
 					dept.setUpdatedTime(departmentNames.getUpdatedTime());
+					dept.setIsActive(true);
+					dept.setIsDeleted(false);
 					dept.setName(obj);
 					return dept;
 				}).collect(Collectors.toList()));

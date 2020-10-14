@@ -8,6 +8,6 @@ import com.albraik.infra.jobtitle.model.JobTitleEntity;
 
 public interface JobtitleRepo extends JpaRepository<JobTitleEntity, Integer>{
 
-	List<JobTitleEntity> findByCreatedBy(Integer userId);
+	List<JobTitleEntity> findByCreatedByAndIsActiveTrueAndIsDeletedFalse(Integer userId);
 
 }

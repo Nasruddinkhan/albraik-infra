@@ -8,6 +8,8 @@ public final class JobTitleResDTO {
 	private Long createdTime;
 	private Long updatedTime;
 	private Integer createdBy;
+	private Boolean isActive;
+	private Boolean isDeleted;
 	
 	
 	public JobTitleResDTO() {
@@ -15,7 +17,7 @@ public final class JobTitleResDTO {
 		// TODO Auto-generated constructor stub
 	}
 	public JobTitleResDTO(Integer id, String name, Integer companyId, Long createdTime, Long updatedTime,
-			Integer createdBy) {
+			Integer createdBy, Boolean isActive, Boolean isDeleted) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -23,6 +25,8 @@ public final class JobTitleResDTO {
 		this.createdTime = createdTime;
 		this.updatedTime = updatedTime;
 		this.createdBy = createdBy;
+		this.isActive = isActive;
+		this.isDeleted = isDeleted;
 	}
 	public Integer getId() {
 		return id;
@@ -59,6 +63,18 @@ public final class JobTitleResDTO {
 	}
 	public void setCreatedBy(Integer createdBy) {
 		this.createdBy = createdBy;
+	}
+	public Boolean getIsActive() {
+		return isActive;
+	}
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+	public Boolean getIsDeleted() {
+		return isDeleted;
+	}
+	public void setIsDeleted(Boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 
 }

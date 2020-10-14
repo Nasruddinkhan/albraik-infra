@@ -36,7 +36,7 @@ public class CourtServiceImpl implements CourtService {
 		for(CourtDTO courtDTO : courtList)
 		{
 			long currentTime = System.currentTimeMillis();
-			CourtEntity courtEntity = new CourtEntity(courtDTO.getName(), user.getCompanyId(), currentTime, currentTime, user.getId());
+			CourtEntity courtEntity = new CourtEntity(courtDTO.getName(), user.getCompanyId(), currentTime, currentTime, user.getId(), true, false);
 			courtEntityList.add(courtEntity);
 		}
 		return courtRepo.saveAll(courtEntityList);

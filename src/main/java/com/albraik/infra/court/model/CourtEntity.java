@@ -45,13 +45,15 @@ public class CourtEntity {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public CourtEntity(String name, Integer companyId, Long createdTime, Long updatedTime, Integer createdBy) {
+	public CourtEntity(String name, Integer companyId, Long createdTime, Long updatedTime, Integer createdBy, Boolean isActive, Boolean isDeleted) {
 		super();
 		this.name = name;
 		this.companyId = companyId;
 		this.createdTime = createdTime;
 		this.updatedTime = updatedTime;
 		this.createdBy = createdBy;
+		this.isActive = isActive;
+		this.isDeleted = isDeleted;
 	}
 	
 	@JsonProperty("id")
