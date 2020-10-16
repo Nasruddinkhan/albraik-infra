@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.albraik.infra.jobtitle.dto.JobTitleDTO;
@@ -58,7 +59,7 @@ public class JobtitleController {
 	}
 
 	@DeleteMapping("/jobtitle")
-	public ResponseEntity<List<JobTitleResDTO>> deleteMultipleJobTitle(@RequestBody List<Integer> jobTitleIdList,
+	public ResponseEntity<List<JobTitleResDTO>> deleteMultipleJobTitle(@RequestParam("id") List<Integer> jobTitleIdList,
 			Principal principal) {
 		UserEntity userEntity = userService.getUserDetailsByEmail(principal.getName());
 		List<JobTitleResDTO> jobTitleResDtoList = jobTitleService.deleteJobTitle(jobTitleIdList, userEntity);

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.albraik.infra.department.dto.DepartmentDTO;
@@ -65,7 +66,7 @@ public class DepartmentController {
 	}
 	
 	@DeleteMapping("/department")
-	public ResponseEntity<List<DepartmentResDTO>> deleteMultipleDepartment(@RequestBody List<Integer> departmentIdList, Principal principal)
+	public ResponseEntity<List<DepartmentResDTO>> deleteMultipleDepartment(@RequestParam("id") List<Integer> departmentIdList, Principal principal)
 	{
 		UserEntity userEntity = userService.getUserDetailsByEmail(principal.getName());
 		List<DepartmentResDTO> departmentList = departmentService.deleteDepartment(departmentIdList, userEntity);

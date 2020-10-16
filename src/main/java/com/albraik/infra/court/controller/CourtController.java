@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.albraik.infra.contact.model.ContactEntity;
@@ -59,7 +60,7 @@ public class CourtController {
 	}
 	
 	@DeleteMapping
-	public ResponseEntity<List<CourtEntity>> deleteMultipleCourt(@RequestBody List<Integer> courtIdList, Principal principal)
+	public ResponseEntity<List<CourtEntity>> deleteMultipleCourt(@RequestParam("id") List<Integer> courtIdList, Principal principal)
 	{
 		UserEntity userEntity = userService.getUserDetailsByEmail(principal.getName());
 		List<CourtEntity> courtList = courtService.deleteCourt(courtIdList, userEntity);
