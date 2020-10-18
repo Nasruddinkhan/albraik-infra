@@ -9,4 +9,5 @@ public interface RoleService {
 
 	List<RoleResDTO> findAll(Integer userId);
 	List<RoleResDTO> createRole(RoleDTO roleDto);
+	List<RoleResDTO> findByCompanyID(Integer companyId);
 }

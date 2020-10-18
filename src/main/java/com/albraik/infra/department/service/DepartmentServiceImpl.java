@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.albraik.infra.court.model.CourtEntity;
 import com.albraik.infra.department.dto.DepartmentDTO;
 import com.albraik.infra.department.dto.DepartmentReqDTO;
 import com.albraik.infra.department.dto.DepartmentResDTO;
@@ -98,4 +97,13 @@ public class DepartmentServiceImpl implements DepartmentService {
 		return mapAll(departmentRepo.saveAll(departmentList), DepartmentResDTO.class);
 	}
 	
+
+	@Override
+	public List<DepartmentResDTO> findByCompanyId(Integer companyID) {
+		// TODO Auto-generated method stub
+		List<DepartmentEntity> depEntities = departmentRepo.findByCompanyId(companyID);
+		if (depEntities.isEmpty())
+			throw new RuntimeException("Internal server error");
+		return mapAll(depEntities, DepartmentResDTO.class);
+	}
 }

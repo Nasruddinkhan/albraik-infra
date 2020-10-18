@@ -10,4 +10,6 @@ public interface JobtitleRepo extends JpaRepository<JobTitleEntity, Integer>{
 
 	List<JobTitleEntity> findByCreatedByAndIsActiveTrueAndIsDeletedFalse(Integer userId);
 
+	List<JobTitleEntity> findByCompanyId(Integer companyID);
+
 }

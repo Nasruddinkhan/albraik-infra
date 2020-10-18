@@ -37,4 +37,9 @@ public class RoleController {
 	public ResponseEntity<List<RoleResDTO>> findAll(@PathVariable Integer userId) {
 		return new ResponseEntity<List<RoleResDTO>>(roleService.findAll(userId), HttpStatus.OK);
 	}
+	
+	@GetMapping("/get/{companyId}/companyroles")
+	public ResponseEntity<List<RoleResDTO>> findByCompanyID(@PathVariable Integer companyId) {
+		return new ResponseEntity<List<RoleResDTO>>(roleService.findByCompanyID(companyId), HttpStatus.OK);
+	}
 }

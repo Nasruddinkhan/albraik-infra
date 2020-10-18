@@ -16,5 +16,6 @@ public interface JobTitleService {
 	JobTitleResDTO updateJobTitle(Integer jobTitleId, JobTitleDTO jobTitleReqDTO, UserEntity user);
 
 	List<JobTitleResDTO> deleteJobTitle(List<Integer> jobTitleIdList, UserEntity user);
+	List<JobTitleResDTO> findAllJobtitle(Integer companyID);
 
 }

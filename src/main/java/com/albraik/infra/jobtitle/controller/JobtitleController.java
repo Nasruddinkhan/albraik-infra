@@ -29,6 +29,7 @@ public class JobtitleController {
 
 	private JobTitleService jobTitleService;
 
+	
 	@Autowired
 	private UserService userService;
 
@@ -65,5 +66,8 @@ public class JobtitleController {
 		List<JobTitleResDTO> jobTitleResDtoList = jobTitleService.deleteJobTitle(jobTitleIdList, userEntity);
 		return ResponseEntity.ok(jobTitleResDtoList);
 	}
-
+	@GetMapping("/get/{companyID}/jobtitle")
+	public ResponseEntity<List<JobTitleResDTO>> findAllJobtitle(@PathVariable Integer companyID) {
+		return new ResponseEntity<List<JobTitleResDTO>>(jobTitleService.findAllJobtitle(companyID), HttpStatus.OK);
+	}
 }

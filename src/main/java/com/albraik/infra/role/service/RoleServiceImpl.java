@@ -9,8 +9,6 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.albraik.infra.department.dto.DepartmentResDTO;
-import com.albraik.infra.department.model.DepartmentEntity;
 import com.albraik.infra.exception.ResourceNotFoundException;
 import com.albraik.infra.role.dto.RoleDTO;
 import com.albraik.infra.role.dto.RoleResDTO;
@@ -49,7 +47,16 @@ public class RoleServiceImpl implements RoleService {
 	public List<RoleResDTO> findAll(Integer userId) {
 		List<RoleEntity> roles = roleRepo.findByCreatedBy(userId);
 		if (roles.isEmpty())
-			throw new ResourceNotFoundException("no department found");
+			throw new ResourceNotFoundException("no role found");
+		return mapAll(roles, RoleResDTO.class);
+	}
+
+	@Override
+	public List<RoleResDTO> findByCompanyID(Integer companyId) {
+		// TODO Auto-generated method stub
+		List<RoleEntity> roles = roleRepo.findByCompanyId(companyId);
+		if (roles.isEmpty())
+			throw new ResourceNotFoundException("no role found");
 		return mapAll(roles, RoleResDTO.class);
 	}
 }

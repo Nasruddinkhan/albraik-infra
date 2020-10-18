@@ -42,5 +42,4 @@ public class LoginController {
 		loginDto.setToken(jwtUtil.genrateToken(userEntity));
 		return new ResponseEntity<>(loginDto, HttpStatus.OK);
 	}
-
 }

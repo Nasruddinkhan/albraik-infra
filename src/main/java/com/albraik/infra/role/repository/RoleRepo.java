@@ -12,4 +12,6 @@ public interface RoleRepo extends JpaRepository<RoleEntity, Integer> {
 
 	List<RoleEntity> findByCreatedBy(Integer createdBy);
 
+	List<RoleEntity> findByCompanyId(Integer companyId);
+
 }

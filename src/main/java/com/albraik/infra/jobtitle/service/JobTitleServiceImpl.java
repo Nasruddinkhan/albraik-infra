@@ -85,4 +85,13 @@ public class JobTitleServiceImpl implements JobTitleService {
 		return mapAll(jobtitleRepo.saveAll(jobTitleList), JobTitleResDTO.class);
 	}
 
+	@Override
+	public List<JobTitleResDTO> findAllJobtitle(Integer companyID) {
+		// TODO Auto-generated method stub
+		List<JobTitleEntity> jobs =  jobtitleRepo.findByCompanyId(companyID);
+		if (jobs.isEmpty())
+			throw new ResourceNotFoundException("no department found");
+		return  mapAll(jobs, JobTitleResDTO.class);
+	}
+
 }

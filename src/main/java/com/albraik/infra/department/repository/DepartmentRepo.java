@@ -12,5 +12,8 @@ public interface DepartmentRepo extends JpaRepository<DepartmentEntity, Integer>
 
 	List<DepartmentEntity> findByCreatedByAndIsActiveTrueAndIsDeletedFalse(Integer createdBy);
 	DepartmentEntity findByCreatedByAndCompanyIdAndNameAndIsActiveTrueAndIsDeletedFalse(Integer userId, Integer companyId, String name);
+	List<DepartmentEntity> findByCreatedBy(Integer createdBy);
+	DepartmentEntity findByCreatedByAndCompanyIdAndName(Integer userId, Integer companyId, String name);
+	List<DepartmentEntity> findByCompanyId(Integer companyID);
 
 }

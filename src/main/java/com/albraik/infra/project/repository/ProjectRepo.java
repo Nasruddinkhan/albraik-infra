@@ -18,5 +18,6 @@ public interface ProjectRepo extends JpaRepository<ProjectEntity, Integer>{
 	List<ProjectEntity> findByprojectTypeIdAndIsActiveTrueAndCompanyId(String projectType, Integer companyId);
 
 	
+	
 
 }

@@ -19,4 +19,6 @@ public interface DepartmentService {
 	
 	List<DepartmentResDTO> deleteDepartment(List<Integer> departmentIds, UserEntity userEntity);
 
+	List<DepartmentResDTO> findByCompanyId(Integer companyID);
+
 }

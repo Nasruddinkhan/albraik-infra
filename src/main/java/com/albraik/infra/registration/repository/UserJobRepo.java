@@ -7,5 +7,7 @@ import com.albraik.infra.registration.model.UserJobEntity;
 
 @Repository
 public interface UserJobRepo extends JpaRepository<UserJobEntity, Integer>{
+
+	UserJobEntity findByuserId(Integer userId);
 	
 }

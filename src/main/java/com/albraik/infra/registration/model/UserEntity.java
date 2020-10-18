@@ -1,6 +1,7 @@
 package com.albraik.infra.registration.model;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -51,7 +52,7 @@ public class UserEntity {
 	private String role;
 
 	@JsonProperty("date_of_birth")
-	private Long dateOfBirth;
+	private Date dateOfBirth;
 
 	@JsonProperty("place_of_birth")
 	private String placeOfBirth;
@@ -82,6 +83,9 @@ public class UserEntity {
 
 	@JsonProperty("updated_time")
 	private Long updatedTime;
+	
+	@JsonProperty("mobile_number")
+	private String mobileNumber;
 
 	@JsonProperty("is_active")
 	private Boolean isActive;
@@ -197,12 +201,12 @@ public class UserEntity {
 	}
 
 	@JsonProperty("date_of_birth")
-	public Long getDateOfBirth() {
+	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
 
 	@JsonProperty("date_of_birth")
-	public void setDateOfBirth(Long dateOfBirth) {
+	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
@@ -345,6 +349,14 @@ public class UserEntity {
 	}
 
 
+	@JsonProperty("mobile_number")
+	public String getMobileNumber() {
+		return mobileNumber;
+	}
+	@JsonProperty("mobile_number")
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
 
 	@Override
 	public String toString() {
