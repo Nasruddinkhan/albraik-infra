@@ -13,7 +13,9 @@ public interface ContactService {
 	
 	ContactEntity updateContact(UserEntity userEntity, UpdateContactDTO contactDTO, Integer contactId);
 	
-	void deleteContact(UserEntity userEntity, Integer contactId);
+	ContactEntity deleteContact(UserEntity userEntity, Integer contactId);
+	
+	List<ContactEntity> deleteMultipleContact(UserEntity userEntity, List<Integer> contactIdList);
 	
 	List<ContactEntity> getAllContacts(Integer companyId);
 	

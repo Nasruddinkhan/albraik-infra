@@ -52,10 +52,18 @@ public class ContactManagementController {
 	}
 
 	@DeleteMapping("/{contactId}")
-	public ResponseEntity<?> deleteContact(@PathVariable Integer contactId, Principal principal) {
+	public ResponseEntity<ContactEntity> deleteContact(@PathVariable Integer contactId, Principal principal) {
 		UserEntity userDetails = userService.getUserDetailsByEmail(principal.getName());
-		contactService.deleteContact(userDetails, contactId);
-		return ResponseEntity.ok().build();
+		ContactEntity contact = contactService.deleteContact(userDetails, contactId);
+		return ResponseEntity.ok(contact);
+	}
+
+	@DeleteMapping
+	public ResponseEntity<List<ContactEntity>> deleteMultipleContact(@RequestParam("id") List<Integer> contactIdList,
+			Principal principal) {
+		UserEntity userDetails = userService.getUserDetailsByEmail(principal.getName());
+		List<ContactEntity> deletedContactList = contactService.deleteMultipleContact(userDetails, contactIdList);
+		return ResponseEntity.ok(deletedContactList);
 	}
 
 	@GetMapping
@@ -75,9 +83,10 @@ public class ContactManagementController {
 			return new ResponseEntity<>(myContacts, HttpStatus.NO_CONTENT);
 		return ResponseEntity.ok(myContacts);
 	}
-	
+
 	@GetMapping(params = { "contactTypeId" })
-	public ResponseEntity<List<ContactEntity>> getContactsByType(@RequestParam Integer contactTypeId, Principal principal) {
+	public ResponseEntity<List<ContactEntity>> getContactsByType(@RequestParam Integer contactTypeId,
+			Principal principal) {
 		UserEntity userDetails = userService.getUserDetailsByEmail(principal.getName());
 		List<ContactEntity> myContacts = contactService.getContactsByType(userDetails.getCompanyId(), contactTypeId);
 		if (myContacts.isEmpty())

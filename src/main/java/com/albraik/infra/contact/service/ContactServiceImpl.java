@@ -1,5 +1,7 @@
 package com.albraik.infra.contact.service;
 
+import static com.albraik.infra.util.ObjectUtilMapper.mapAll;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import com.albraik.infra.contact.repository.ContactRepo;
 import com.albraik.infra.exception.PhoneNumberExistException;
 import com.albraik.infra.exception.ResourceNotFoundException;
 import com.albraik.infra.exception.UnauthorizedAccessException;
+import com.albraik.infra.jobtitle.dto.JobTitleResDTO;
+import com.albraik.infra.jobtitle.model.JobTitleEntity;
 import com.albraik.infra.registration.model.UserEntity;
 import com.albraik.infra.registration.repository.UserRepo;
 import com.albraik.infra.util.ObjectUtilMapper;
@@ -62,16 +66,33 @@ public class ContactServiceImpl implements ContactService {
 	}
 
 	@Override
-	public void deleteContact(UserEntity userDetails, Integer contactId) {
+	public ContactEntity deleteContact(UserEntity userDetails, Integer contactId) {
 		
 		ContactEntity contactDetails = getContactDetails(userDetails, contactId);
+		
+		if(contactDetails == null)
+			throw new ResourceNotFoundException("No Contact found");
 
 		if (contactDetails.getCreatedBy() != userDetails.getId())
-			throw new UnauthorizedAccessException("unauthorized access");
+			throw new UnauthorizedAccessException("You don't have access to delete the Contact: " + contactDetails.getId());
 		
 		contactDetails.setIsDeleted(true);
 		contactDetails.setUpdatedTime(System.currentTimeMillis());
-		contactRepo.save(contactDetails);
+		return contactRepo.save(contactDetails);
+	}
+	
+	@Override
+	public List<ContactEntity> deleteMultipleContact(UserEntity userEntity, List<Integer> contactIdList) {
+		List<ContactEntity> contactList = contactRepo.findAllById(contactIdList);
+		if(contactList.isEmpty())
+			throw new ResourceNotFoundException("No Contact found");
+		contactList.forEach(contact -> {
+			if(userEntity.getId() != contact.getCreatedBy())
+				throw new UnauthorizedAccessException("You don't have access to delete the Contact: " + contact.getId());
+			contact.setIsDeleted(true);
+			contact.setUpdatedTime(System.currentTimeMillis());
+		});
+		return contactRepo.saveAll(contactList);
 	}
 
 	@Override
