@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.albraik.infra.contact.dto.ContactDTO;
+import com.albraik.infra.contact.dto.UpdateContactDTO;
 import com.albraik.infra.contact.model.ContactEntity;
 import com.albraik.infra.contact.repository.ContactRepo;
 import com.albraik.infra.exception.PhoneNumberExistException;
@@ -45,7 +46,7 @@ public class ContactServiceImpl implements ContactService {
 	}
 
 	@Override
-	public ContactEntity updateContact(UserEntity userEntity, ContactDTO contactDTO, Integer contactId) {
+	public ContactEntity updateContact(UserEntity userEntity, UpdateContactDTO contactDTO, Integer contactId) {
 		ContactEntity contactDetails = getContactDetails(userEntity, contactId);
 		
 		if (contactDetails.getCreatedBy() != userEntity.getId())

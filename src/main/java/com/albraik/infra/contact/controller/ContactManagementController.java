@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.albraik.infra.contact.dto.ContactDTO;
+import com.albraik.infra.contact.dto.UpdateContactDTO;
 import com.albraik.infra.contact.model.ContactEntity;
 import com.albraik.infra.contact.service.ContactService;
 import com.albraik.infra.registration.model.UserEntity;
@@ -42,7 +43,7 @@ public class ContactManagementController {
 	}
 
 	@PutMapping("/{contactId}")
-	public ResponseEntity<ContactEntity> updateContact(@Validated @RequestBody ContactDTO contactDTO,
+	public ResponseEntity<ContactEntity> updateContact(@Validated @RequestBody UpdateContactDTO contactDTO,
 			@PathVariable Integer contactId, Principal principal) {
 		UserEntity userDetails = userService.getUserDetailsByEmail(principal.getName());
 		ContactEntity contactDetails = contactService.updateContact(userDetails, contactDTO, contactId);
