@@ -36,6 +36,7 @@ public class GlobalExceptionHandler {
 		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
 		return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.UNAUTHORIZED);
 	}
+	
 	@ExceptionHandler(UserNotFound.class)
 	public ResponseEntity<?> usernameNotFoundException(UserNotFound ex, WebRequest request) {
 		System.out.println(ex.getMessage());
@@ -43,5 +44,10 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+	@ExceptionHandler(BadRequestException.class)
+	public ResponseEntity<ErrorDetails> badRequest(BadRequestException ex, WebRequest request){
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.BAD_REQUEST);
+	}
 	
 }

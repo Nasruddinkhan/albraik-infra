@@ -1,4 +1,4 @@
-package com.albraik.infra.privilege;
+package com.albraik.infra.privilege.controller;
 
 import java.util.List;
 
