@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.albraik.infra.exception.BadRequestException;
 import com.albraik.infra.exception.ResourceNotFoundException;
+import com.albraik.infra.exception.UnauthorizedAccessException;
 import com.albraik.infra.privilege.model.PrivilegeEntity;
 import com.albraik.infra.privilege.repository.PrivilegeRepo;
 import com.albraik.infra.registration.model.UserEntity;
@@ -64,6 +65,10 @@ public class RoleServiceImpl implements RoleService {
 		if (rolePrivilegeIdDTO.getPrivilegeIdList().isEmpty()) {
 			throw new BadRequestException("At least one privilege is required");
 		}
+		List<PrivilegeEntity> privilegeList = privilegeRepo.findAllById(rolePrivilegeIdDTO.getPrivilegeIdList());
+		if (privilegeList.isEmpty()) {
+			throw new BadRequestException("Invalid privilege id");
+		}
 		// save role details
 		long currentTime = System.currentTimeMillis();
 		RoleEntity roleEntity = new RoleEntity();
@@ -75,7 +80,6 @@ public class RoleServiceImpl implements RoleService {
 		roleEntity = roleRepo.save(roleEntity);
 
 		List<RolePrivilegeEntity> rolePrivilegeList = new ArrayList<>();
-		List<PrivilegeEntity> privilegeList = privilegeRepo.findAllById(rolePrivilegeIdDTO.getPrivilegeIdList());
 		RolePrivilegeEntity rolePrivilegeEntity = null;
 		for (PrivilegeEntity privilegeEntity : privilegeList) {
 			rolePrivilegeEntity = new RolePrivilegeEntity();
@@ -86,11 +90,80 @@ public class RoleServiceImpl implements RoleService {
 			rolePrivilegeEntity.setIsDeleted(false);
 			rolePrivilegeList.add(rolePrivilegeEntity);
 		}
-
 		rolePrivilegeList = rolePrivilegeRepo.saveAll(rolePrivilegeList);
 		RolePrivilegeDTO rolePrivilegeDTO = new RolePrivilegeDTO();
 		ObjectUtilMapper.map(roleEntity, rolePrivilegeDTO);
 		rolePrivilegeDTO.setPrivilegeList(privilegeList);
+
+		return rolePrivilegeDTO;
+	}
+
+	@Override
+	public RolePrivilegeDTO updateRoleWithPrivilege(UserEntity userEntity, Integer roleId,
+			RolePrivilegeIdDTO rolePrivilegeIdDTO) {
+		RoleEntity roleEntity = roleRepo.findById(roleId)
+				.orElseThrow(() -> new ResourceNotFoundException("Role not found"));
+		if (!roleEntity.getCreatedBy().equals(userEntity.getId())) {
+			throw new UnauthorizedAccessException("You don't have access to update this role");
+		}
+		if (rolePrivilegeIdDTO.getName() == null || "".equals(rolePrivilegeIdDTO.getName().trim())) {
+			throw new BadRequestException("Role name cannot be blank");
+		}
+		if (rolePrivilegeIdDTO.getPrivilegeIdList().isEmpty()) {
+			throw new BadRequestException("At least one privilege is required");
+		}
+		List<String> newPrivilegeIdList = rolePrivilegeIdDTO.getPrivilegeIdList();
+		List<PrivilegeEntity> newPrivilegeList = privilegeRepo.findAllById(newPrivilegeIdList);
+		if (newPrivilegeList.isEmpty()) {
+			throw new BadRequestException("Invalid privilege id");
+		}
+		newPrivilegeIdList.clear();
+		for (PrivilegeEntity privilegeEntity : newPrivilegeList) {
+			newPrivilegeIdList.add(privilegeEntity.getId());
+		}
+
+		// update role details
+		long currentTime = System.currentTimeMillis();
+		roleEntity.setName(rolePrivilegeIdDTO.getName());
+		roleEntity.setUpdatedTime(currentTime);
+		roleEntity = roleRepo.save(roleEntity);
+
+		// update existing role-privilege mapping
+		List<RolePrivilegeEntity> newRolePrivilegeList = new ArrayList<>();
+		List<RolePrivilegeEntity> currentRolePrivilegeList = rolePrivilegeRepo.findByRoleId(roleEntity.getId());
+		List<String> currentPrivilegeIdList = new ArrayList<>();
+		for (RolePrivilegeEntity rolePrivilegeEntity : currentRolePrivilegeList) {
+			currentPrivilegeIdList.add(rolePrivilegeEntity.getPrivilegeId());
+			if (newPrivilegeIdList.contains(rolePrivilegeEntity.getPrivilegeId())) {
+				rolePrivilegeEntity.setIsDeleted(false);
+			} else {
+				rolePrivilegeEntity.setIsDeleted(true);
+			}
+			rolePrivilegeEntity.setUpdatedTime(currentTime);
+			newRolePrivilegeList.add(rolePrivilegeEntity);
+		}
+
+		// remove existing role-privilege from new role-privilege list
+		newPrivilegeIdList.removeAll(currentPrivilegeIdList);
+
+		// create role-privilege for new mappings
+		for (String privilegeId : newPrivilegeIdList) {
+			RolePrivilegeEntity rolePrivilegeEntity = new RolePrivilegeEntity();
+			rolePrivilegeEntity.setRoleId(roleEntity.getId());
+			rolePrivilegeEntity.setPrivilegeId(privilegeId);
+			rolePrivilegeEntity.setCreatedTime(currentTime);
+			rolePrivilegeEntity.setUpdatedTime(currentTime);
+			rolePrivilegeEntity.setIsDeleted(false);
+			newRolePrivilegeList.add(rolePrivilegeEntity);
+		}
+
+		// save all role-privilege mappings
+		newRolePrivilegeList = rolePrivilegeRepo.saveAll(newRolePrivilegeList);
+
+		// create dto for response
+		RolePrivilegeDTO rolePrivilegeDTO = new RolePrivilegeDTO();
+		ObjectUtilMapper.map(roleEntity, rolePrivilegeDTO);
+		rolePrivilegeDTO.setPrivilegeList(newPrivilegeList);
 
 		return rolePrivilegeDTO;
 	}

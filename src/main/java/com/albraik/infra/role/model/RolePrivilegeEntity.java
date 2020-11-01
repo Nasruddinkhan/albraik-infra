@@ -1,13 +1,18 @@
 package com.albraik.infra.role.model;
 
+import java.io.IOException;
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.albraik.infra.contact.model.ContactEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Entity
 @Table(name = "role_privilege")
@@ -92,6 +97,41 @@ public class RolePrivilegeEntity {
 	@JsonProperty("is_deleted")
 	public void setIsDeleted(Boolean isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+	
+	@Override
+	public String toString() {
+		ObjectMapper Obj = new ObjectMapper();
+		try {
+			// return JSON String
+			return Obj.writeValueAsString(this);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		return this.getClass().getName();
+	}
+	
+	@Override
+	public int hashCode() {
+		int hash = 7;
+        hash = 13 * hash + Objects.hashCode(this.id);
+        hash = 13 * hash + Objects.hashCode(this.roleId);
+        return hash;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if(this == obj)
+			return true;
+		if(obj == null)
+			return false;
+		if (getClass() != obj.getClass()) {
+            return false;
+        }
+		final RolePrivilegeEntity rolePrivilegeEntity = (RolePrivilegeEntity) obj;
+		return rolePrivilegeEntity.id == this.id;
 	}
 
 }

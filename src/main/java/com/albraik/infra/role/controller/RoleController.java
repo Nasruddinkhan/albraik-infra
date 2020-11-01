@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,6 +53,14 @@ public class RoleController {
 			Principal principal) {
 		UserEntity userEntity = userService.getUserDetailsByEmail(principal.getName());
 		RolePrivilegeDTO rolePrivilegeDTO = roleService.createRoleWithPrivilege(userEntity, rolePrivilegeIdDTO);
+		return ResponseEntity.ok(rolePrivilegeDTO);
+	}
+	
+	@PutMapping("/role/{roleId}")
+	public ResponseEntity<RolePrivilegeDTO> updateRole(@RequestBody RolePrivilegeIdDTO rolePrivilegeIdDTO, @PathVariable Integer roleId, Principal principal)
+	{
+		UserEntity userEntity = userService.getUserDetailsByEmail(principal.getName());
+		RolePrivilegeDTO rolePrivilegeDTO = roleService.updateRoleWithPrivilege(userEntity, roleId, rolePrivilegeIdDTO);
 		return ResponseEntity.ok(rolePrivilegeDTO);
 	}
 }

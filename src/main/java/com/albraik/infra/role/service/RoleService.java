@@ -14,7 +14,9 @@ public interface RoleService {
 
 	List<RoleResDTO> createRole(RoleDTO roleDto);
 
+	List<RoleResDTO> findByCompanyID(Integer companyId);
+
 	RolePrivilegeDTO createRoleWithPrivilege(UserEntity userEntity, RolePrivilegeIdDTO rolePrivilegeIdDTO);
 
-	List<RoleResDTO> findByCompanyID(Integer companyId);
+	RolePrivilegeDTO updateRoleWithPrivilege(UserEntity userEntity, Integer roleId, RolePrivilegeIdDTO rolePrivilegeIdDTO);
 }
