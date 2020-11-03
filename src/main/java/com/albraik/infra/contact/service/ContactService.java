@@ -6,12 +6,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.albraik.infra.contact.dto.ContactDTO;
-<<<<<<< HEAD
 import com.albraik.infra.contact.dto.UpdateContactDTO;
-=======
 import com.albraik.infra.contact.dto.ContactResponseDto;
 import com.albraik.infra.contact.dto.ContactViewResponseDto;
->>>>>>> e6fc384... contact module complete
 import com.albraik.infra.contact.model.ContactEntity;
 import com.albraik.infra.registration.model.UserEntity;
 
