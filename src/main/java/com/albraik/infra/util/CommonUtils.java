@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Optional;
 
 import javax.imageio.ImageIO;
 
@@ -28,7 +29,9 @@ public interface CommonUtils {
 		}
 		return file;
 	}
-	
+	public static String checkNull(Object obj) {
+		return Optional.ofNullable(obj).map(s -> s.toString()).orElse("");
+	}
 	public static String uploadFileToS3Bucket(final String bucketName, final File file, AmazonS3 amazonS3, String endPointURL) {
 	        final String uniqueFileName = System.currentTimeMillis() + "_" + file.getName();
 	        final PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, uniqueFileName, file);

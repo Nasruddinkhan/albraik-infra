@@ -14,7 +14,25 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<name>infra</name>
 	<description>Albraik core apis</description>
-
+<profiles>
+		<profile>
+    <id>sonar</id>
+    <activation>
+        <activeByDefault>true</activeByDefault>
+    </activation>
+    <properties>
+        <sonar.host.url>
+            localhost:9000
+        </sonar.host.url>
+        <sonar.login>
+            4c18560482575c16ce45bc88f7643d57adba3e7r
+        </sonar.login>
+        <sonar.password></sonar.password>
+        <sonar.branch>sonar-showcase-1</sonar.branch>
+        <sonar.java.binaries>./target</sonar.java.binaries>
+    </properties>
+</profile>
+</profiles>
 	<properties>
 		<java.version>1.8</java.version>
 		<aws-java-sdk.version>1.11.750</aws-java-sdk.version>
@@ -30,7 +48,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -63,8 +81,8 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-hateoas</artifactId>
-        </dependency>
-        <dependency>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
 		</dependency>
@@ -89,7 +107,7 @@
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
 	</dependencies>
-	
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -102,11 +120,18 @@
 		</dependencies>
 	</dependencyManagement>
 	<build>
+	
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+			<groupId>org.sonarsource.scanner.maven</groupId>
+			<artifactId>sonar-maven-plugin</artifactId>
+			<version>3.6.0.1398</version>
+		</plugin>
 		</plugins>
+	
 	</build>
 </project>

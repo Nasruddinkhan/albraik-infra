@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ContactDTO {
 
+	private Integer id;
+	
 	private String name;
 
 	private Integer contactTypeId;
@@ -90,6 +92,14 @@ public class ContactDTO {
 		this.comment = comment;
 	}
 	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
 		ObjectMapper Obj = new ObjectMapper();
