@@ -2,8 +2,13 @@ package com.albraik.infra.contact.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.albraik.infra.contact.dto.ContactDTO;
 import com.albraik.infra.contact.dto.UpdateContactDTO;
+import com.albraik.infra.contact.dto.ContactResponseDto;
+import com.albraik.infra.contact.dto.ContactViewResponseDto;
 import com.albraik.infra.contact.model.ContactEntity;
 import com.albraik.infra.registration.model.UserEntity;
 
@@ -24,5 +29,9 @@ public interface ContactService {
 	ContactEntity getContactDetails(UserEntity userDetails, Integer contactId);
 	
 	List<ContactEntity> getContactsByType(Integer companyId, Integer contactType);
+
+	Page<ContactResponseDto> getAllContacts(Integer companyId, String name, Integer concatid, Pageable contactPage);
+
+	ContactViewResponseDto getContactDetails(Integer contactId);
 	
 }
