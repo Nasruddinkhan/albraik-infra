@@ -7,9 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.albraik.infra.contact.model.ContactEntity;
+import com.albraik.infra.privilege.model.PrivilegeEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,11 +27,15 @@ public class RolePrivilegeEntity {
 	@JsonProperty("id")
 	private Integer id;
 
-	@JsonProperty("role_id")
-	private Integer roleId;
+	@ManyToOne
+	@JoinColumn(name = "role_id", referencedColumnName = "id")
+	@JsonProperty("role")
+	private RoleEntity role;
 
-	@JsonProperty("privilege_id")
-	private String privilegeId;
+	@ManyToOne
+	@JoinColumn(name = "privilege_id", referencedColumnName = "id")
+	@JsonProperty("privilege")
+	private PrivilegeEntity privilege;
 
 	@JsonProperty("created_time")
 	private Long createdTime;
@@ -49,24 +56,24 @@ public class RolePrivilegeEntity {
 		this.id = id;
 	}
 
-	@JsonProperty("role_id")
-	public Integer getRoleId() {
-		return roleId;
+	@JsonProperty("role")
+	public RoleEntity getRole() {
+		return role;
 	}
 
-	@JsonProperty("role_id")
-	public void setRoleId(Integer roleId) {
-		this.roleId = roleId;
+	@JsonProperty("role")
+	public void setRole(RoleEntity role) {
+		this.role = role;
 	}
 
-	@JsonProperty("privilege_id")
-	public String getPrivilegeId() {
-		return privilegeId;
+	@JsonProperty("privilege")
+	public PrivilegeEntity getPrivilege() {
+		return privilege;
 	}
 
-	@JsonProperty("privilege_id")
-	public void setPrivilegeId(String privilegeId) {
-		this.privilegeId = privilegeId;
+	@JsonProperty("privilege")
+	public void setPrivilege(PrivilegeEntity privilege) {
+		this.privilege = privilege;
 	}
 
 	@JsonProperty("created_time")
@@ -116,7 +123,7 @@ public class RolePrivilegeEntity {
 	public int hashCode() {
 		int hash = 7;
         hash = 13 * hash + Objects.hashCode(this.id);
-        hash = 13 * hash + Objects.hashCode(this.roleId);
+        hash = 13 * hash + Objects.hashCode(this.role);
         return hash;
 	}
 	

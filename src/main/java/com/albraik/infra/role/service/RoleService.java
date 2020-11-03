@@ -7,16 +7,18 @@ import com.albraik.infra.role.dto.RoleDTO;
 import com.albraik.infra.role.dto.RolePrivilegeDTO;
 import com.albraik.infra.role.dto.RolePrivilegeIdDTO;
 import com.albraik.infra.role.dto.RoleResDTO;
+import com.albraik.infra.role.model.RoleEntity;
 
 public interface RoleService {
 
-	List<RoleResDTO> findAll(Integer userId);
+	List<RolePrivilegeDTO> findAll(Integer userId);
 
 	List<RoleResDTO> createRole(RoleDTO roleDto);
 
-	List<RoleResDTO> findByCompanyID(Integer companyId);
+	List<RolePrivilegeDTO> findByCompanyID(Integer companyId);
 
 	RolePrivilegeDTO createRoleWithPrivilege(UserEntity userEntity, RolePrivilegeIdDTO rolePrivilegeIdDTO);
 
 	RolePrivilegeDTO updateRoleWithPrivilege(UserEntity userEntity, Integer roleId, RolePrivilegeIdDTO rolePrivilegeIdDTO);
+	
 }

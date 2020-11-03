@@ -25,6 +25,7 @@ import com.albraik.infra.role.model.RoleEntity;
 import com.albraik.infra.role.model.RolePrivilegeEntity;
 import com.albraik.infra.role.repository.RolePrivilegeRepo;
 import com.albraik.infra.role.repository.RoleRepo;
+import com.albraik.infra.role.util.RoleUtil;
 import com.albraik.infra.util.ObjectUtilMapper;
 
 @Service("roleService")
@@ -77,14 +78,16 @@ public class RoleServiceImpl implements RoleService {
 		roleEntity.setName(rolePrivilegeIdDTO.getName());
 		roleEntity.setCreatedTime(currentTime);
 		roleEntity.setUpdatedTime(currentTime);
+		roleEntity.setIsActive(true);
+		roleEntity.setIsDeleted(false);
 		roleEntity = roleRepo.save(roleEntity);
 
 		List<RolePrivilegeEntity> rolePrivilegeList = new ArrayList<>();
 		RolePrivilegeEntity rolePrivilegeEntity = null;
 		for (PrivilegeEntity privilegeEntity : privilegeList) {
 			rolePrivilegeEntity = new RolePrivilegeEntity();
-			rolePrivilegeEntity.setRoleId(roleEntity.getId());
-			rolePrivilegeEntity.setPrivilegeId(privilegeEntity.getId());
+			rolePrivilegeEntity.setRole(roleEntity);
+			rolePrivilegeEntity.setPrivilege(privilegeEntity);
 			rolePrivilegeEntity.setCreatedTime(currentTime);
 			rolePrivilegeEntity.setUpdatedTime(currentTime);
 			rolePrivilegeEntity.setIsDeleted(false);
@@ -133,8 +136,8 @@ public class RoleServiceImpl implements RoleService {
 		List<RolePrivilegeEntity> currentRolePrivilegeList = rolePrivilegeRepo.findByRoleId(roleEntity.getId());
 		List<String> currentPrivilegeIdList = new ArrayList<>();
 		for (RolePrivilegeEntity rolePrivilegeEntity : currentRolePrivilegeList) {
-			currentPrivilegeIdList.add(rolePrivilegeEntity.getPrivilegeId());
-			if (newPrivilegeIdList.contains(rolePrivilegeEntity.getPrivilegeId())) {
+			currentPrivilegeIdList.add(rolePrivilegeEntity.getPrivilege().getId());
+			if (newPrivilegeIdList.contains(rolePrivilegeEntity.getPrivilege().getId())) {
 				rolePrivilegeEntity.setIsDeleted(false);
 			} else {
 				rolePrivilegeEntity.setIsDeleted(true);
@@ -149,8 +152,10 @@ public class RoleServiceImpl implements RoleService {
 		// create role-privilege for new mappings
 		for (String privilegeId : newPrivilegeIdList) {
 			RolePrivilegeEntity rolePrivilegeEntity = new RolePrivilegeEntity();
-			rolePrivilegeEntity.setRoleId(roleEntity.getId());
-			rolePrivilegeEntity.setPrivilegeId(privilegeId);
+			rolePrivilegeEntity.setRole(roleEntity);
+			PrivilegeEntity privilegeEntity = new PrivilegeEntity();
+			privilegeEntity.setId(privilegeId);
+			rolePrivilegeEntity.setPrivilege(privilegeEntity);
 			rolePrivilegeEntity.setCreatedTime(currentTime);
 			rolePrivilegeEntity.setUpdatedTime(currentTime);
 			rolePrivilegeEntity.setIsDeleted(false);
@@ -169,19 +174,20 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public List<RoleResDTO> findAll(Integer userId) {
-		List<RoleEntity> roles = roleRepo.findByCreatedBy(userId);
+	public List<RolePrivilegeDTO> findAll(Integer userId) {
+		List<RoleEntity> roles = roleRepo.findByCreatedByAndIsDeletedFalse(userId);
 		if (roles.isEmpty())
 			throw new ResourceNotFoundException("no role found");
-		return mapAll(roles, RoleResDTO.class);
+		return RoleUtil.getRolePrivilegeListByRoleList(roles);
 	}
 
 	@Override
-	public List<RoleResDTO> findByCompanyID(Integer companyId) {
+	public List<RolePrivilegeDTO> findByCompanyID(Integer companyId) {
 		// TODO Auto-generated method stub
-		List<RoleEntity> roles = roleRepo.findByCompanyId(companyId);
+		List<RoleEntity> roles = roleRepo.findByCompanyIdAndIsDeletedFalse(companyId);
 		if (roles.isEmpty())
 			throw new ResourceNotFoundException("no role found");
-		return mapAll(roles, RoleResDTO.class);
+		return RoleUtil.getRolePrivilegeListByRoleList(roles);
 	}
+	
 }

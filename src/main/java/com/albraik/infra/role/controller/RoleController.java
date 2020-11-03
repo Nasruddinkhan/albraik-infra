@@ -21,6 +21,7 @@ import com.albraik.infra.role.dto.RoleDTO;
 import com.albraik.infra.role.dto.RolePrivilegeDTO;
 import com.albraik.infra.role.dto.RolePrivilegeIdDTO;
 import com.albraik.infra.role.dto.RoleResDTO;
+import com.albraik.infra.role.model.RoleEntity;
 import com.albraik.infra.role.service.RoleService;
 
 @RestController
@@ -39,13 +40,13 @@ public class RoleController {
 	}
 
 	@GetMapping("/get/{userId}/roles")
-	public ResponseEntity<List<RoleResDTO>> findAll(@PathVariable Integer userId) {
-		return new ResponseEntity<List<RoleResDTO>>(roleService.findAll(userId), HttpStatus.OK);
+	public ResponseEntity<List<RolePrivilegeDTO>> findAll(@PathVariable Integer userId) {
+		return new ResponseEntity<List<RolePrivilegeDTO>>(roleService.findAll(userId), HttpStatus.OK);
 	}
 
 	@GetMapping("/get/{companyId}/companyroles")
-	public ResponseEntity<List<RoleResDTO>> findByCompanyID(@PathVariable Integer companyId) {
-		return new ResponseEntity<List<RoleResDTO>>(roleService.findByCompanyID(companyId), HttpStatus.OK);
+	public ResponseEntity<List<RolePrivilegeDTO>> findByCompanyID(@PathVariable Integer companyId) {
+		return new ResponseEntity<List<RolePrivilegeDTO>>(roleService.findByCompanyID(companyId), HttpStatus.OK);
 	}
 
 	@PostMapping("/role")
@@ -63,4 +64,5 @@ public class RoleController {
 		RolePrivilegeDTO rolePrivilegeDTO = roleService.updateRoleWithPrivilege(userEntity, roleId, rolePrivilegeIdDTO);
 		return ResponseEntity.ok(rolePrivilegeDTO);
 	}
+	
 }

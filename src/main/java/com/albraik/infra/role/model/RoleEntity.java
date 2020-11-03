@@ -1,10 +1,15 @@
 package com.albraik.infra.role.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -34,6 +39,15 @@ public class RoleEntity {
 	
 	@JsonProperty("created_by")
 	private Integer createdBy;
+	
+	@JsonProperty("is_active")
+	private Boolean isActive;
+	
+	@JsonProperty("is_deleted")
+	private Boolean isDeleted;
+	
+	@OneToMany(mappedBy = "role")
+	private List<RolePrivilegeEntity> rolePrivilegeList;
 	
 	@JsonProperty("id")
 	public Integer getId() {
@@ -88,6 +102,34 @@ public class RoleEntity {
 	@JsonProperty("updated_time")
 	public void setUpdatedTime(Long updatedTime) {
 		this.updatedTime = updatedTime;
+	}
+	
+	@JsonProperty("is_active")
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	@JsonProperty("is_active")
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	@JsonProperty("is_deleted")
+	public Boolean getIsDeleted() {
+		return isDeleted;
+	}
+
+	@JsonProperty("is_deleted")
+	public void setIsDeleted(Boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+	
+	public List<RolePrivilegeEntity> getRolePrivilegeList() {
+		return rolePrivilegeList;
+	}
+	
+	public void setRolePrivilegeList(List<RolePrivilegeEntity> rolePrivilegeList) {
+		this.rolePrivilegeList = rolePrivilegeList;
 	}
 	
 	
