@@ -104,15 +104,8 @@ public class UserJobEntity {
 
 	@Override
 	public String toString() {
-		ObjectMapper Obj = new ObjectMapper();
-		try {
-			// return JSON String
-			return Obj.writeValueAsString(this);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "";
+		return "UserJobEntity [id=" + id + ", userId=" + userId + ", departmentId=" + departmentId + ", jobTitleId="
+				+ jobTitleId + ", joiningDate=" + joiningDate + ", roleId=" + roleId + "]";
 	}
 	
 	@Override

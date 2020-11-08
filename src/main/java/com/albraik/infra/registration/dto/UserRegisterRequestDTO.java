@@ -3,7 +3,7 @@ package com.albraik.infra.registration.dto;
 import java.sql.Date;
 
 public class UserRegisterRequestDTO {
-
+	private Integer userId;
 	private String email;
 	
 	private String phoneNumber;
@@ -29,6 +29,16 @@ public class UserRegisterRequestDTO {
 	private Long createdTime;
 	
 	private Long updatedTime;
+
+
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 
 	public UserRegisterRequestDTO() {
 		this.createdTime = System.currentTimeMillis();

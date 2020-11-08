@@ -360,15 +360,15 @@ public class UserEntity {
 
 	@Override
 	public String toString() {
-		ObjectMapper Obj = new ObjectMapper();
-		try {
-			// return JSON String
-			return Obj.writeValueAsString(this);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "";
+		return "UserEntity [id=" + id + ", firstName=" + firstName + ", fatherName=" + fatherName + ", grandFatherName="
+				+ grandFatherName + ", familyName=" + familyName + ", email=" + email + ", password=" + password
+				+ ", phoneNumber=" + phoneNumber + ", address=" + address + ", role=" + role + ", dateOfBirth="
+				+ dateOfBirth + ", placeOfBirth=" + placeOfBirth + ", education=" + education + ", experience="
+				+ experience + ", skills=" + skills + ", nationality=" + nationality + ", profilePicture="
+				+ profilePicture + ", companyId=" + companyId + ", createdBy=" + createdBy + ", createdTime="
+				+ createdTime + ", updatedTime=" + updatedTime + ", mobileNumber=" + mobileNumber + ", isActive="
+				+ isActive + ", isDeleted=" + isDeleted + ", isCompanyCreated=" + isCompanyCreated + ", isFtl=" + isFtl
+				+ "]";
 	}
 	
 	@Override

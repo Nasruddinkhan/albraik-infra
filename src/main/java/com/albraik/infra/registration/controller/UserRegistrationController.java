@@ -37,14 +37,24 @@ public class UserRegistrationController {
 		System.out.println(userRegistrationRequestDTO);
 		String password = CommonUtils.generateRandomUserPassword();
 		userRegistrationRequestDTO = userRegistrationService.createUser(userRegistrationRequestDTO, password);
-		//send email
 		mailSenderService.sendUserRegisterMail(userRegistrationRequestDTO, password);
 		return ResponseEntity.created( ServletUriComponentsBuilder.fromCurrentRequest().path("/{emailId}")
 				.buildAndExpand(userRegistrationRequestDTO.getEmail()).toUri()).build();
 	}
+	
+	@PostMapping("/user/update")
+	public ResponseEntity<UserRegisterRequestDTO> updateUser(@RequestBody  UserRegisterRequestDTO userRegistrationRequestDTO) {
+		return new ResponseEntity<UserRegisterRequestDTO>(userRegistrationService.updateUser(userRegistrationRequestDTO), HttpStatus.OK);
+	}
+	
 	@GetMapping("/user/{userId}/profile")
 	public ResponseEntity<LoginResponseDTO> getUserDetails(@PathVariable Integer userId){
 		return new ResponseEntity<LoginResponseDTO>(userRegistrationService.getUserDetails(userId), HttpStatus.OK);
+		
+	}
+	@GetMapping("/user/{userId}/delete")
+	public ResponseEntity<LoginResponseDTO> deleteUser(@PathVariable Integer userId){
+		return new ResponseEntity<LoginResponseDTO>(userRegistrationService.deleteUser(userId), HttpStatus.OK);
 		
 	}
 	

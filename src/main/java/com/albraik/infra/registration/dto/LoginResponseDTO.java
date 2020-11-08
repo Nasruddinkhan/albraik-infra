@@ -33,6 +33,16 @@ public final class LoginResponseDTO {
 	private Integer jobId;
 	private Integer roleId;
 	private Integer deptId;
+	private Date joiningDate;
+
+
+	public Date getJoiningDate() {
+		return joiningDate;
+	}
+
+	public void setJoiningDate(Date joiningDate) {
+		this.joiningDate = joiningDate;
+	}
 
 	public Integer getJobId() {
 		return jobId;
