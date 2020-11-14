@@ -14,4 +14,6 @@ public interface RoleRepo extends JpaRepository<RoleEntity, Integer> {
 
 	List<RoleEntity> findByCompanyIdAndIsDeletedFalse(Integer companyId);
 
+	RoleEntity findByIdAndIsDeletedFalse(Integer id);
+
 }

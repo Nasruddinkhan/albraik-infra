@@ -190,4 +190,12 @@ public class RoleServiceImpl implements RoleService {
 		return RoleUtil.getRolePrivilegeListByRoleList(roles);
 	}
 	
+	@Override
+	public RolePrivilegeDTO getRoleWithPrivilegeByRoleId(Integer roleId) {
+		RoleEntity role = roleRepo.findByIdAndIsDeletedFalse(roleId);
+		if (role == null)
+			throw new ResourceNotFoundException("no role found");
+		return RoleUtil.getRolePrivilegeByRole(role);
+	}
+	
 }

@@ -21,4 +21,6 @@ public interface RoleService {
 
 	RolePrivilegeDTO updateRoleWithPrivilege(UserEntity userEntity, Integer roleId, RolePrivilegeIdDTO rolePrivilegeIdDTO);
 	
+	RolePrivilegeDTO getRoleWithPrivilegeByRoleId(Integer roleId);
+	
 }

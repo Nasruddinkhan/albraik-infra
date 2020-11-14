@@ -1,6 +1,10 @@
 package com.albraik.infra.registration.dto;
 
 import java.sql.Date;
+import java.util.List;
+
+import com.albraik.infra.privilege.model.PrivilegeEntity;
+import com.albraik.infra.role.dto.RolePrivilegeDTO;
 
 public final class LoginResponseDTO {
 	private String token;
@@ -34,7 +38,7 @@ public final class LoginResponseDTO {
 	private Integer roleId;
 	private Integer deptId;
 	private Date joiningDate;
-
+	private RolePrivilegeDTO rolePrivilegeDetails;
 
 	public Date getJoiningDate() {
 		return joiningDate;
@@ -163,6 +167,7 @@ public final class LoginResponseDTO {
 	public void setFamilyName(String familyName) {
 		this.familyName = familyName;
 	}
+
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -282,5 +287,13 @@ public final class LoginResponseDTO {
 	public void setIsCompanyCreated(Boolean isCompanyCreated) {
 		this.isCompanyCreated = isCompanyCreated;
 	}
-	
+
+	public RolePrivilegeDTO getRolePrivilegeDetails() {
+		return rolePrivilegeDetails;
+	}
+
+	public void setRolePrivilegeDetails(RolePrivilegeDTO rolePrivilegeDetails) {
+		this.rolePrivilegeDetails = rolePrivilegeDetails;
+	}
+
 }
