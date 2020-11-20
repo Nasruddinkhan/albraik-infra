@@ -112,7 +112,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 	@Override
 	public UserRegisterRequestDTO updateUser(UserRegisterRequestDTO userRegistrationRequestDTO) {
 		// TODO Auto-generated method stub
-		checEmailExists(userRegistrationRequestDTO.getEmail());
+		//checEmailExists(userRegistrationRequestDTO.getEmail());
 		UserEntity userEntity = findUser(userRegistrationRequestDTO.getUserId());
 		userEntity = setUserDetails(userRegistrationRequestDTO, userEntity);
 		UserJobEntity userJobs = findUserJobs(userRegistrationRequestDTO.getUserId());
