@@ -28,7 +28,7 @@ public interface ContactRepo extends JpaRepository<ContactEntity, Integer>{
 	@Query("select c.id, c.name, c.phoneNumber, c.faxNumber, c.email, c.address, c.comment, t.name"
 			+ " from ContactEntity c "
 			+ "	join ContactTypeEntity t  "
-			+ "	on t.id =c.contactTypeId "
+			+ "	on t.id =c.contactType.id "
 			+ " and  c.companyId = :companyId"
 			+ " and c.isDeleted = false")
 	Page<Object[]> findByCompanyIdAndIsDeletedIsFalse(@Param("companyId")Integer companyId, 
@@ -37,7 +37,7 @@ public interface ContactRepo extends JpaRepository<ContactEntity, Integer>{
 	@Query("select c.id, c.name, c.phoneNumber, c.faxNumber, c.email, c.address, c.comment, t.name "
 			+ "	from ContactEntity c "
 			+ "	join ContactTypeEntity t  "
-			+ "	on t.id =c.contactTypeId "
+			+ "	on t.id =c.contactType.id "
 			+ " and  c.companyId = :companyId "
 			+ " and t.id = :concatid"
 			+ " and c.isDeleted = false")
@@ -46,7 +46,7 @@ public interface ContactRepo extends JpaRepository<ContactEntity, Integer>{
 	@Query("select c.id, c.name, c.phoneNumber, c.faxNumber, c.email, c.address, c.comment, t.name "
 			+ " from ContactEntity c "
 			+ " join ContactTypeEntity t  "
-			+ "	on t.id =c.contactTypeId "
+			+ "	on t.id =c.contactType.id "
 			+ " and  c.companyId = :companyId "
 			+ " and t.id = :concatid"
 			+ " and c.name = :name"
@@ -57,7 +57,7 @@ public interface ContactRepo extends JpaRepository<ContactEntity, Integer>{
 	@Query("select c.id, c.name, c.phoneNumber, c.faxNumber, c.email, c.address, c.comment, t.name"
 			+ " from ContactEntity c "
 			+ " join ContactTypeEntity t  "
-			+ " on t.id =c.contactTypeId "
+			+ " on t.id =c.contactType.id "
 			+ " and  c.companyId = :companyId "
 			+ " and c.name = :name"
 			+ " and c.isDeleted = false")
@@ -67,7 +67,7 @@ public interface ContactRepo extends JpaRepository<ContactEntity, Integer>{
 			+ " u.firstName, u.email"
 			+ "  from ContactEntity c "
 			+ "	join ContactTypeEntity t "
-			+ " on t.id = c.contactTypeId "
+			+ " on t.id = c.contactType.id "
 			+ " join UserEntity u "
 			+ " on u.id = c.createdBy"
 			+ " and  c.id  = :contactId")

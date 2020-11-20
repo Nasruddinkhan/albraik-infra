@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -26,8 +28,10 @@ public class ContactEntity {
 	@JsonProperty("name")
 	private String name;
 
-	@JsonProperty("contact_type_id")
-	private Integer contactTypeId;
+	@ManyToOne
+	@JoinColumn(name = "contact_type_id", referencedColumnName = "id")
+	@JsonProperty("contact_type")
+	private ContactTypeEntity contactType;
 
 	@JsonProperty("phone_number")
 	private String phoneNumber;
@@ -61,8 +65,7 @@ public class ContactEntity {
 
 	@JsonProperty("is_deleted")
 	private Boolean isDeleted;
-	
-	
+
 	@JsonProperty("id")
 	public Integer getId() {
 		return id;
@@ -83,14 +86,14 @@ public class ContactEntity {
 		this.name = name;
 	}
 
-	@JsonProperty("contact_type_id")
-	public Integer getContactTypeId() {
-		return contactTypeId;
+	@JsonProperty("contact_type")
+	public ContactTypeEntity getContactType() {
+		return contactType;
 	}
 
-	@JsonProperty("contact_type_id")
-	public void setContactTypeId(Integer contactTypeId) {
-		this.contactTypeId = contactTypeId;
+	@JsonProperty("contact_type")
+	public void setContactType(ContactTypeEntity contactType) {
+		this.contactType = contactType;
 	}
 
 	@JsonProperty("phone_number")
@@ -202,38 +205,37 @@ public class ContactEntity {
 	public void setIsDeleted(Boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
-	
+
 	@Override
 	public String toString() {
 		ObjectMapper Obj = new ObjectMapper();
 		try {
 			// return JSON String
 			return Obj.writeValueAsString(this);
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return this.getClass().getName();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		int hash = 7;
-        hash = 13 * hash + Objects.hashCode(this.id);
-        hash = 13 * hash + Objects.hashCode(this.createdBy);
-        return hash;
+		hash = 13 * hash + Objects.hashCode(this.id);
+		hash = 13 * hash + Objects.hashCode(this.createdBy);
+		return hash;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
-		if(this == obj)
+		if (this == obj)
 			return true;
-		if(obj == null)
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass()) {
-            return false;
-        }
+			return false;
+		}
 		final ContactEntity contactObj = (ContactEntity) obj;
 		return contactObj.id == this.id;
 	}
