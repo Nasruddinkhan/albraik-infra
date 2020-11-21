@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import com.albraik.infra.registration.model.UserEntity;
 import com.albraik.infra.user.dto.UserDTO;
-import com.albraik.infra.user.dto.UserJobDTO;
 
 @Repository
 public interface UserRepo extends JpaRepository<UserEntity, Integer> {
