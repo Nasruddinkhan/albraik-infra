@@ -6,14 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.albraik.infra.department.model.DepartmentEntity;
 import com.albraik.infra.exception.EmailExistsException;
 import com.albraik.infra.exception.ResourceNotFoundException;
+import com.albraik.infra.jobtitle.model.JobTitleEntity;
 import com.albraik.infra.registration.dto.LoginResponseDTO;
 import com.albraik.infra.registration.dto.UserRegisterRequestDTO;
 import com.albraik.infra.registration.model.UserEntity;
 import com.albraik.infra.registration.model.UserJobEntity;
 import com.albraik.infra.registration.repository.UserJobRepo;
 import com.albraik.infra.registration.repository.UserRepo;
+import com.albraik.infra.role.model.RoleEntity;
 import com.albraik.infra.util.AppConstants;
 
 @Service("userRegistrationService")
@@ -32,11 +36,12 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 		this.userJobRepo = userJobRepo;
 		this.bcryptPasswordEncode = bcryptPasswordEncode;
 	}
-    public void checEmailExists(String email) {
-    	if (emailExist(email))
-			throw new EmailExistsException(
-					"There is an account with that email address: " + email);
-    }
+
+	public void checEmailExists(String email) {
+		if (emailExist(email))
+			throw new EmailExistsException("There is an account with that email address: " + email);
+	}
+
 	@Override
 	public UserRegisterRequestDTO createUser(UserRegisterRequestDTO userRegistrationRequestDTO, String plainPassword) {
 		checEmailExists(userRegistrationRequestDTO.getEmail());
@@ -44,7 +49,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 		user.setPassword(bcryptPasswordEncode.encode(plainPassword));
 		user = usrRepo.save(user);
 		UserJobEntity userJob = map(userRegistrationRequestDTO, UserJobEntity.class);
-		userJob.setUserId(user.getId());
+		userJob.setUser(user);
 		userJobRepo.save(userJob);
 		return userRegistrationRequestDTO;
 	}
@@ -69,9 +74,9 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 		// TODO Auto-generated method stub
 		if (AppConstants.ROLE_USER.equals(resDto.getRole())) {
 			UserJobEntity userJobs = findUserJobs(userId);
-			resDto.setJobId(userJobs.getJobTitleId());
-			resDto.setDeptId(userJobs.getDepartmentId());
-			resDto.setRoleId(userJobs.getRoleId());
+			resDto.setJobId(userJobs.getJobTitle().getId());
+			resDto.setDeptId(userJobs.getDepartment().getId());
+			resDto.setRoleId(userJobs.getRole().getId());
 			resDto.setJoiningDate(userJobs.getJoiningDate());
 		}
 		return resDto;
@@ -112,25 +117,41 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 	@Override
 	public UserRegisterRequestDTO updateUser(UserRegisterRequestDTO userRegistrationRequestDTO) {
 		// TODO Auto-generated method stub
-		//checEmailExists(userRegistrationRequestDTO.getEmail());
+		// checEmailExists(userRegistrationRequestDTO.getEmail());
 		UserEntity userEntity = findUser(userRegistrationRequestDTO.getUserId());
 		userEntity = setUserDetails(userRegistrationRequestDTO, userEntity);
 		UserJobEntity userJobs = findUserJobs(userRegistrationRequestDTO.getUserId());
-		if(userJobs == null)
-				throw new RuntimeException("record not found");
-		userJobs = setUserJobs(userJobs, userRegistrationRequestDTO );
+		if (userJobs == null)
+			throw new RuntimeException("record not found");
+		userJobs = setUserJobs(userJobs, userRegistrationRequestDTO);
 		userEntity = usrRepo.save(userEntity);
 		userJobs = userJobRepo.save(userJobs);
-		return map(userJobs, UserRegisterRequestDTO.class);
+		return setUserRegisterRequestDTO(userRegistrationRequestDTO, userJobs);
+	}
+
+	private UserRegisterRequestDTO setUserRegisterRequestDTO(UserRegisterRequestDTO userRegisterRequestDTO,
+			UserJobEntity userJobEntity) {
+		userRegisterRequestDTO.setUserId(userJobEntity.getUser().getId());
+		userRegisterRequestDTO.setDepartmentId(userJobEntity.getDepartment().getId());
+		userRegisterRequestDTO.setJobTitleId(userJobEntity.getJobTitle().getId());
+		userRegisterRequestDTO.setJoiningDate(userJobEntity.getJoiningDate());
+		userRegisterRequestDTO.setRoleId(userJobEntity.getRole().getId());
+		return userRegisterRequestDTO;
 	}
 
 	private UserJobEntity setUserJobs(UserJobEntity userJobs, UserRegisterRequestDTO userRegistrationRequestDTO) {
 		// TODO Auto-generated method stub
-		userJobs.setDepartmentId(userRegistrationRequestDTO.getDepartmentId());
-		userJobs.setJobTitleId(userRegistrationRequestDTO.getJobTitleId());
+		DepartmentEntity department = new DepartmentEntity();
+		department.setId(userRegistrationRequestDTO.getDepartmentId());
+		userJobs.setDepartment(department);
+		JobTitleEntity jobTitle = new JobTitleEntity();
+		jobTitle.setId(userRegistrationRequestDTO.getJobTitleId());
+		userJobs.setJobTitle(jobTitle);
 		userJobs.setJoiningDate(userRegistrationRequestDTO.getJoiningDate());
-		userJobs.setRoleId(userJobs.getRoleId());
-		userJobs.setUserId(userRegistrationRequestDTO.getUserId());
+		userJobs.setRole(userJobs.getRole());
+		UserEntity user = new UserEntity();
+		user.setId(userRegistrationRequestDTO.getUserId());
+		userJobs.setUser(user);
 		return userJobs;
 	}
 
@@ -139,10 +160,11 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 		userEntity.setPhoneNumber(userRegistrationRequestDTO.getPhoneNumber());
 		return userEntity;
 	}
+
 	@Override
 	public LoginResponseDTO deleteUser(Integer userId) {
 		// TODO Auto-generated method stub
-		UserEntity usrEntity =  findUser(userId);
+		UserEntity usrEntity = findUser(userId);
 		usrEntity.setIsActive(false);
 		return map(usrRepo.save(usrEntity), LoginResponseDTO.class);
 	}

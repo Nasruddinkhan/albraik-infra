@@ -5,11 +5,22 @@ import java.sql.Date;
 import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
+import com.albraik.infra.department.model.DepartmentEntity;
+import com.albraik.infra.jobtitle.model.JobTitleEntity;
+import com.albraik.infra.role.model.RoleEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,35 +34,36 @@ public class UserJobEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonProperty("id")
 	private Integer id;
-	
-	@JsonProperty("user_id")
-	private Integer userId;
 
-	@JsonProperty("department_id")
-	private Integer departmentId;
+	@OneToOne
+	@JoinColumn(name = "user_id")
+	@JsonProperty("user")
+	private UserEntity user;
 
-	@JsonProperty("job_title_id")
-	private Integer jobTitleId;
-	
+	@ManyToOne(optional = true)
+	@JoinColumn(name = "department_id")
+	@NotFound(action = NotFoundAction.IGNORE)
+	@JsonProperty("department")
+	private DepartmentEntity department;
+
+	@ManyToOne(optional = true)
+	@JoinColumn(name = "job_title_id")
+	@NotFound(action = NotFoundAction.IGNORE)
+	@JsonProperty("job_title")
+	private JobTitleEntity jobTitle;
+
 	@JsonProperty("joining_date")
 	private Date joiningDate;
 
-	@JsonProperty("role_id")
-	private Integer roleId;
+	@ManyToOne(optional = true)
+	@JoinColumn(name = "role_id")
+	@NotFound(action = NotFoundAction.IGNORE)
+	@JsonProperty("role")
+	private RoleEntity role;
 
 	public UserJobEntity() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	public UserJobEntity( Integer userId, Integer departmentId, Integer jobTitleId, Date joiningDate,
-			Integer roleId) {
-		super();
-		this.userId = userId;
-		this.departmentId = departmentId;
-		this.jobTitleId = jobTitleId;
-		this.joiningDate = joiningDate;
-		this.roleId = roleId;
 	}
 
 	public Integer getId() {
@@ -62,28 +74,28 @@ public class UserJobEntity {
 		this.id = id;
 	}
 
-	public Integer getUserId() {
-		return userId;
+	public UserEntity getUser() {
+		return user;
 	}
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setUser(UserEntity user) {
+		this.user = user;
 	}
 
-	public Integer getDepartmentId() {
-		return departmentId;
+	public DepartmentEntity getDepartment() {
+		return department;
 	}
 
-	public void setDepartmentId(Integer departmentId) {
-		this.departmentId = departmentId;
+	public void setDepartment(DepartmentEntity department) {
+		this.department = department;
 	}
 
-	public Integer getJobTitleId() {
-		return jobTitleId;
+	public JobTitleEntity getJobTitle() {
+		return jobTitle;
 	}
 
-	public void setJobTitleId(Integer jobTitleId) {
-		this.jobTitleId = jobTitleId;
+	public void setJobTitle(JobTitleEntity jobTitle) {
+		this.jobTitle = jobTitle;
 	}
 
 	public Date getJoiningDate() {
@@ -94,42 +106,47 @@ public class UserJobEntity {
 		this.joiningDate = joiningDate;
 	}
 
-	public Integer getRoleId() {
-		return roleId;
+	public RoleEntity getRole() {
+		return role;
 	}
 
-	public void setRoleId(Integer roleId) {
-		this.roleId = roleId;
+	public void setRole(RoleEntity role) {
+		this.role = role;
 	}
 
 	@Override
 	public String toString() {
-		return "UserJobEntity [id=" + id + ", userId=" + userId + ", departmentId=" + departmentId + ", jobTitleId="
-				+ jobTitleId + ", joiningDate=" + joiningDate + ", roleId=" + roleId + "]";
+		ObjectMapper Obj = new ObjectMapper();
+		try {
+			// return JSON String
+			return Obj.writeValueAsString(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return this.getClass().getName();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		int hash = 7;
-        hash = 13 * hash + Objects.hashCode(this.id);
-        hash = 13 * hash + Objects.hashCode(this.userId);
-        hash = 13 * hash + Objects.hashCode(this.departmentId);
-        return hash;
+		hash = 13 * hash + Objects.hashCode(this.id);
+		hash = 13 * hash + Objects.hashCode(this.user.getId());
+		hash = 13 * hash + Objects.hashCode(this.department.getId());
+		return hash;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
-		if(this == obj)
+		if (this == obj)
 			return true;
-		if(obj == null)
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass()) {
-            return false;
-        }
+			return false;
+		}
 		final UserJobEntity userObj = (UserJobEntity) obj;
 		return userObj.id == this.id;
 	}
 
-	
 }

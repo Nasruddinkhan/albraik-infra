@@ -52,7 +52,7 @@ public class LoginController {
 		loginDto.setToken(jwtUtil.genrateToken(userEntity));
 		try {
 			UserJobEntity userJob = userJobService.getUserJobByUserId(userEntity.getId());
-			loginDto.setRolePrivilegeDetails(roleService.getRoleWithPrivilegeByRoleId(userJob.getRoleId()));
+			loginDto.setRolePrivilegeDetails(roleService.getRoleWithPrivilegeByRoleId(userJob.getRole().getId()));
 		} catch (Exception e) {
 			// do nothing as job and role can still be null
 		}

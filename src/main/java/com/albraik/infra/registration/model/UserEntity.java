@@ -2,14 +2,18 @@ package com.albraik.infra.registration.model;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.albraik.infra.role.model.RolePrivilegeEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -98,6 +102,9 @@ public class UserEntity {
 
 	@JsonProperty("is_ftl")
 	private Boolean isFtl;
+	
+	@OneToOne(mappedBy = "user")
+	private UserJobEntity userJobEntity;
 
 
 	@JsonProperty("id")
@@ -356,6 +363,14 @@ public class UserEntity {
 	@JsonProperty("mobile_number")
 	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
+	}
+
+	public UserJobEntity getUserJobEntity() {
+		return userJobEntity;
+	}
+
+	public void setUserJobEntity(UserJobEntity userJobEntity) {
+		this.userJobEntity = userJobEntity;
 	}
 
 	@Override
