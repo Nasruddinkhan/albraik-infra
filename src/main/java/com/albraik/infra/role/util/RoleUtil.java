@@ -5,30 +5,28 @@ import java.util.List;
 
 import com.albraik.infra.privilege.model.PrivilegeEntity;
 import com.albraik.infra.role.dto.RolePrivilegeDTO;
+import com.albraik.infra.role.dto.RolePrivilegeIdDTO;
 import com.albraik.infra.role.model.RoleEntity;
 import com.albraik.infra.role.model.RolePrivilegeEntity;
 
 public class RoleUtil {
 
-	public static List<RolePrivilegeDTO> getRolePrivilegeListByRoleList(List<RoleEntity> roleList)
-	{
+	public static List<RolePrivilegeDTO> getRolePrivilegeListByRoleList(List<RoleEntity> roleList) {
 		List<RolePrivilegeDTO> rolePrivilegeList = new ArrayList<>();
-		if(roleList == null || roleList.isEmpty())
+		if (roleList == null || roleList.isEmpty())
 			return rolePrivilegeList;
-		for(RoleEntity roleEntity: roleList)
-		{
+		for (RoleEntity roleEntity : roleList) {
 			RolePrivilegeDTO rolePrivilegeDTO = getRolePrivilegeByRole(roleEntity);
-			if(rolePrivilegeDTO == null)
+			if (rolePrivilegeDTO == null)
 				continue;
 			rolePrivilegeList.add(rolePrivilegeDTO);
 		}
 		return rolePrivilegeList;
 	}
-	
-	public static RolePrivilegeDTO getRolePrivilegeByRole(RoleEntity roleEntity)
-	{
+
+	public static RolePrivilegeDTO getRolePrivilegeByRole(RoleEntity roleEntity) {
 		RolePrivilegeDTO rolePrivilegeDTO = null;
-		if(roleEntity == null)
+		if (roleEntity == null)
 			return rolePrivilegeDTO;
 		rolePrivilegeDTO = new RolePrivilegeDTO();
 		rolePrivilegeDTO.setId(roleEntity.getId());
@@ -41,15 +39,31 @@ public class RoleUtil {
 		rolePrivilegeDTO.setPrivilegeList(privilegeList);
 		return rolePrivilegeDTO;
 	}
-	
-	public static List<PrivilegeEntity> getPrivilegeListByRolePrivilegeList(List<RolePrivilegeEntity> rolePrivilegeList)
-	{
+
+	public static RolePrivilegeIdDTO getRolePrivilegeIdByRole(RoleEntity roleEntity) {
+		RolePrivilegeIdDTO rolePrivilegeIdDTO = null;
+		if (roleEntity == null)
+			return rolePrivilegeIdDTO;
+		rolePrivilegeIdDTO = new RolePrivilegeIdDTO();
+		rolePrivilegeIdDTO.setId(roleEntity.getId());
+		rolePrivilegeIdDTO.setName(roleEntity.getName());
+		List<PrivilegeEntity> privilegeList = getPrivilegeListByRolePrivilegeList(roleEntity.getRolePrivilegeList());
+		List<String> privilegeIdList = new ArrayList<>();
+		privilegeList.forEach(privilegeEntity -> {
+			privilegeIdList.add(privilegeEntity.getId());
+		});
+		rolePrivilegeIdDTO.setPrivilegeIdList(privilegeIdList);
+		return rolePrivilegeIdDTO;
+	}
+
+	public static List<PrivilegeEntity> getPrivilegeListByRolePrivilegeList(
+			List<RolePrivilegeEntity> rolePrivilegeList) {
 		List<PrivilegeEntity> privilegeList = new ArrayList<>();
 		if (rolePrivilegeList == null || rolePrivilegeList.isEmpty())
 			return privilegeList;
 		rolePrivilegeList.forEach(rolePrivilege -> {
-			//add only if active
-			if(!rolePrivilege.getIsDeleted())
+			// add only if active
+			if (!rolePrivilege.getIsDeleted())
 				privilegeList.add(rolePrivilege.getPrivilege());
 		});
 		return privilegeList;

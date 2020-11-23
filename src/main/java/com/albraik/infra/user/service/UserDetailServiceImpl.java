@@ -14,6 +14,7 @@ import com.albraik.infra.registration.model.UserJobEntity;
 import com.albraik.infra.registration.repository.UserJobRepo;
 import com.albraik.infra.registration.repository.UserRepo;
 import com.albraik.infra.role.model.RoleEntity;
+import com.albraik.infra.role.util.RoleUtil;
 import com.albraik.infra.user.dto.UserDTO;
 import com.albraik.infra.user.dto.UserJobDTO;
 import com.albraik.infra.util.ObjectUtilMapper;
@@ -50,18 +51,9 @@ public class UserDetailServiceImpl implements UserDetailService {
 				return;
 			}
 			userJob.setJoiningDate(userJobEntity.getJoiningDate());
-			DepartmentEntity departmentEntity = userJobEntity.getDepartment();
-			if (departmentEntity != null) {
-				userJob.setDepartment(departmentEntity.getName());
-			}
-			RoleEntity roleEntity = userJobEntity.getRole();
-			if (roleEntity != null) {
-				userJob.setRole(roleEntity.getName());
-			}
-			JobTitleEntity jobTitleEntity = userJobEntity.getJobTitle();
-			if (jobTitleEntity != null) {
-				userJob.setJobTitle(jobTitleEntity.getName());
-			}
+			userJob.setDepartment(userJobEntity.getDepartment());
+			userJob.setRole(RoleUtil.getRolePrivilegeIdByRole(userJobEntity.getRole()));
+			userJob.setJobTitle(userJobEntity.getJobTitle());
 			userJobList.add(userJob);
 		});
 		return userJobList;

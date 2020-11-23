@@ -2,6 +2,11 @@ package com.albraik.infra.user.dto;
 
 import java.util.Date;
 
+import com.albraik.infra.department.model.DepartmentEntity;
+import com.albraik.infra.jobtitle.model.JobTitleEntity;
+import com.albraik.infra.role.dto.RolePrivilegeIdDTO;
+import com.albraik.infra.role.model.RoleEntity;
+
 public class UserJobDTO {
 
 	private Integer id;
@@ -28,11 +33,11 @@ public class UserJobDTO {
 
 	private Boolean isFtl;
 
-	private String role;
+	private RolePrivilegeIdDTO role;
 
-	private String department;
+	private DepartmentEntity department;
 
-	private String jobTitle;
+	private JobTitleEntity jobTitle;
 
 	private Date joiningDate;
 
@@ -132,27 +137,27 @@ public class UserJobDTO {
 		this.isFtl = isFtl;
 	}
 
-	public String getRole() {
+	public RolePrivilegeIdDTO getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(RolePrivilegeIdDTO role) {
 		this.role = role;
 	}
 
-	public String getDepartment() {
+	public DepartmentEntity getDepartment() {
 		return department;
 	}
 
-	public void setDepartment(String department) {
+	public void setDepartment(DepartmentEntity department) {
 		this.department = department;
 	}
 
-	public String getJobTitle() {
+	public JobTitleEntity getJobTitle() {
 		return jobTitle;
 	}
 
-	public void setJobTitle(String jobTitle) {
+	public void setJobTitle(JobTitleEntity jobTitle) {
 		this.jobTitle = jobTitle;
 	}
 
