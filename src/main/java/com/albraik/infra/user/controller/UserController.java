@@ -53,10 +53,11 @@ public class UserController {
 	 * @return
 	 */
 	@GetMapping("/user/internal")
-	public ResponseEntity<UserEntity> getUserByEmail(Principal principal) {
+	public ResponseEntity<UserJobDTO> getUserByEmail(Principal principal) {
 		UserEntity userEntity = userService.getUserDetailsByEmail(principal.getName());
 		if (userEntity == null)
 			throw new ResourceNotFoundException("No user found");
-		return ResponseEntity.ok(userEntity);
+		UserJobDTO userJobDTO = userDetailService.getUserJobFromUserEntity(userEntity);
+		return ResponseEntity.ok(userJobDTO);
 	}
 }

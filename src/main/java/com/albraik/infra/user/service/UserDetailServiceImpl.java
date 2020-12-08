@@ -44,19 +44,29 @@ public class UserDetailServiceImpl implements UserDetailService {
 		List<UserJobDTO> userJobList = new ArrayList<>();
 		List<UserEntity> userList = userRepo.findAllByCompanyIdAndRole(companyId, role);
 		userList.forEach(userEntity -> {
-			UserJobDTO userJob = ObjectUtilMapper.map(userEntity, UserJobDTO.class);
-			UserJobEntity userJobEntity = userEntity.getUserJobEntity();
-			if (userJobEntity == null) {
-				userJobList.add(userJob);
+			UserJobDTO userJob = getUserJobFromUserEntity(userEntity);
+			if (userJob == null)
 				return;
-			}
-			userJob.setJoiningDate(userJobEntity.getJoiningDate());
-			userJob.setDepartment(userJobEntity.getDepartment());
-			userJob.setRole(RoleUtil.getRolePrivilegeIdByRole(userJobEntity.getRole()));
-			userJob.setJobTitle(userJobEntity.getJobTitle());
 			userJobList.add(userJob);
 		});
 		return userJobList;
+	}
+
+	@Override
+	public UserJobDTO getUserJobFromUserEntity(UserEntity userEntity) {
+		if (userEntity == null)
+			return null;
+
+		UserJobDTO userJob = ObjectUtilMapper.map(userEntity, UserJobDTO.class);
+		UserJobEntity userJobEntity = userEntity.getUserJobEntity();
+		if (userJobEntity == null) {
+			return userJob;
+		}
+		userJob.setJoiningDate(userJobEntity.getJoiningDate());
+		userJob.setDepartment(userJobEntity.getDepartment());
+		userJob.setRole(RoleUtil.getRolePrivilegeIdByRole(userJobEntity.getRole()));
+		userJob.setJobTitle(userJobEntity.getJobTitle());
+		return userJob;
 	}
 
 	@Override

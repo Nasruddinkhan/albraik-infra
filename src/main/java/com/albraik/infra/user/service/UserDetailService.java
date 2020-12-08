@@ -12,5 +12,7 @@ public interface UserDetailService {
 	List<UserJobDTO> getUserDetails(Integer companyId, String role);
 
 	List<UserDTO> getUserJobtitle(Integer companyId, String name, String roleUser);
+	
+	UserJobDTO getUserJobFromUserEntity(UserEntity userEntity);
 
 }
