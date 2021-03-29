@@ -1,19 +1,15 @@
 package com.albraik.infra.user.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.albraik.infra.department.model.DepartmentEntity;
-import com.albraik.infra.jobtitle.model.JobTitleEntity;
 import com.albraik.infra.registration.model.UserEntity;
 import com.albraik.infra.registration.model.UserJobEntity;
 import com.albraik.infra.registration.repository.UserJobRepo;
 import com.albraik.infra.registration.repository.UserRepo;
-import com.albraik.infra.role.model.RoleEntity;
 import com.albraik.infra.role.util.RoleUtil;
 import com.albraik.infra.user.dto.UserDTO;
 import com.albraik.infra.user.dto.UserJobDTO;
