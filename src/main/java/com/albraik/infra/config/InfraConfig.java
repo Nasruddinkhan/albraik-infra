@@ -28,7 +28,7 @@ public class InfraConfig {
         // Get AmazonS3 client and return the s3Client object.
         return AmazonS3ClientBuilder
                 .standard()
-                .withRegion(Regions.AP_SOUTH_1)
+                .withRegion(Regions.US_EAST_1)
                 .withCredentials(new AWSStaticCredentialsProvider(basicAWSCredentials))
                 .build();
     }

@@ -4,11 +4,11 @@ allow:
 auth:
   header: Authorization
 aws:
-  access_key_id: AKIAWO7SBJWW6RRSWJVF
+  access_key_id: AKIA27B3VZFOCRX4POER
   s3:
-    bucket: albraik-company-images
-    endpointUrl: https://albraik-company-images.s3.ap-south-1.amazonaws.com
-  secret_access_key: gs57SCJiYW8KaFXOk27nAOWewHtZwm4kz5sdSrdi
+    bucket: albraik-user-image
+    endpointUrl: http://albraik-user-image.s3-website-us-east-1.amazonaws.com
+  secret_access_key: CR2M3K3O4Fa5ItW1wjcrQ5hRd1TLhxzaraNbjd96
 eureka:
   client:
     fetch-registry: true
@@ -42,9 +42,10 @@ spring:
   application:
     name: infra
   datasource:
-    password: Albraik123
-    url: jdbc:mysql://albraik-db-dev.ciw5dfghqgfo.ap-south-1.rds.amazonaws.com/albraik_db?useSSL=false
-    username: admin
+    password: root
+    url: jdbc:mysql://localhost:3306/albraik_db
+    username: root
+    driver-class-name: com.mysql.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: none
