@@ -1,0 +1,58 @@
+allow:
+  header: '*'
+  orgins: '*'
+auth:
+  header: Authorization
+aws:
+  access_key_id: AKIAWO7SBJWW6RRSWJVF
+  s3:
+    bucket: albraik-company-images
+    endpointUrl: https://albraik-company-images.s3.ap-south-1.amazonaws.com
+  secret_access_key: gs57SCJiYW8KaFXOk27nAOWewHtZwm4kz5sdSrdi
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+img:
+  location: D://temp//
+mail:
+  template:
+    admin-register:
+      id: 1
+    user-register:
+      id: 2
+reg:
+  cor:
+    conf: /**
+secret:
+  key: dofzxhnbsdlzbpajp878ireujgldfkhg0#$%^&*shgh
+server:
+  port: 8081
+  servlet:
+    application-display-name: infra
+    contextPath: /infra
+sign:
+  in:
+    url: /login/validateUser
+  up:
+    urls: /register/**
+spring:
+  application:
+    name: infra
+  datasource:
+    password: Albraik123
+    url: jdbc:mysql://albraik-db-dev.ciw5dfghqgfo.ap-south-1.rds.amazonaws.com/albraik_db?useSSL=false
+    username: admin
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
+token:
+  key: 'myToken '
+web:
+  jars: webjars/**
